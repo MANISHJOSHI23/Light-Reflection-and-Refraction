@@ -212,7 +212,7 @@ class TransformByGlyphMap(AnimationGroup):
                 lag_ratio=0.5
                 )
             
-def Ray(start,end,ext:float=0,pos:float=0.5,color:ParsableManimColor=BLUE):
+def Ray(start,end,ext:float=0,pos:float=0.5,color=BLUE):
     dir_lin = Line(start=start,end=end)
     dir = dir_lin.get_length()*ext*dir_lin.get_unit_vector()
     lin = Line(start=start,end=end+dir,color=color)
