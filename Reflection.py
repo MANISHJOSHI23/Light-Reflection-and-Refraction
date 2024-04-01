@@ -232,12 +232,12 @@ def PlaneMirror():
         pol_cord = a2.get_center()
         return [mirror,pol_cord]
 
-def Convex():
+def Convex(R=6, sa=160,ang=40,dash=0.025,pas=0.75,pae=0.1):
     # Creating convex mirror
-        a2=Arc(6,start_angle=160*DEGREES,angle= 40*DEGREES,arc_center=[0,0,0],color=GREEN)
+        a2=Arc(R,start_angle=sa*DEGREES,angle= ang*DEGREES,arc_center=[0,0,0],color=GREEN)
         mirror=VGroup(a2)
         for point in a2.get_all_points():
-            mirror.add(Line(point,point-0.025*point,color=GREEN))
+            mirror.add(Line(point,point-dash*point,color=GREEN))
 
         mirror.move_to(ORIGIN+RIGHT)
         pol_cord = a2.get_left()
@@ -247,7 +247,7 @@ def Convex():
         foc_len = rad/2
 
         # Creating Prinipal axis, pole, center of curvature and focus
-        pa = VGroup(Line(pol_cord+0.75*rad*LEFT,cent_cord+0.1*rad*RIGHT))
+        pa = VGroup(Line(pol_cord+pas*rad*LEFT,cent_cord+pae*rad*RIGHT))
         dash = Dot(color=RED) #Line(start=0.1*DOWN,end=0.1*UP)
         cen = VGroup(dash.copy().move_to(cent_cord),Tex("C",font_size=30).move_to(cent_cord+0.25*DOWN))
         pol = VGroup(dash.copy().move_to(pol_cord),Tex("P",font_size=30).move_to(pol_cord+0.25*DOWN))
@@ -255,7 +255,7 @@ def Convex():
         pa.add(pol,cen,foc)
         return [mirror,pa,pol_cord,cent_cord,foc_cord,rad,foc_len]
 
-def Concave(R=6,sa=20,ang=-40,dash=0.025):
+def Concave(R=6,sa=20,ang=-40,dash=0.025,pae=0.65, pas=0.5):
     # Creating convex mirror
         a2=Arc(R,start_angle=sa*DEGREES,angle= ang*DEGREES,arc_center=[0,0,0],color=GREEN)
         mirror=VGroup(a2)
@@ -269,7 +269,7 @@ def Concave(R=6,sa=20,ang=-40,dash=0.025):
         foc_len = rad/2
 
         # Creating Prinipal axis, pole, center of curvature and focus
-        pa = VGroup(Line(pol_cord+0.65*rad*RIGHT,cent_cord+0.5*rad*LEFT))
+        pa = VGroup(Line(pol_cord+pae*rad*RIGHT,cent_cord+pas*rad*LEFT))
         dash = Dot(color=RED) #Line(start=0.1*DOWN,end=0.1*UP)
         cen = VGroup(dash.copy().move_to(cent_cord),Tex("C",font_size=30).move_to(cent_cord+0.25*DOWN))
         pol = VGroup(dash.copy().move_to(pol_cord),Tex("P",font_size=30).move_to(pol_cord+0.25*DOWN+0.1*LEFT))
@@ -534,8 +534,9 @@ class SphMirror(Slide):
         PA=Line(P3+0.6*RIGHT,C3+2.3*LEFT,color=BLUE)
         paar = CurvedArrow(C3+LEFT,C3+1.5*UP,color=GREY_A,tip_length=0.1)
         palbl = Tex(r"Principal Axis",font_size = 30).next_to(paar.get_tip(),UP,buff=0.05)
-        VGroup(m3,sph,pa3,R,PA,paar,palbl).next_to(defin[1],RIGHT).align_to(defin[2],DOWN).shift(0.1*DOWN)
+        img3=VGroup(m3,sph,pa3,R,PA,paar,palbl).next_to(defin[1],RIGHT).align_to(defin[2],DOWN).shift(0.1*DOWN)
         anm = [pa3[1],VGroup(sph,pa3[2]),R,VGroup(PA,paar,palbl)]
+        
         
         self.next_slide()
         self.play(Write(m3))
@@ -552,18 +553,101 @@ class SphMirror(Slide):
             k=k+1
             self.next_slide()
 
+        self.play(Uncreate(img3),Unwrite(defin))
+        self.wait()
+        self.next_slide()
+        Act = Tex("Activity :",font_size=35, color=GREEN).next_to(terms_title,DOWN).to_corner(LEFT,buff=0.2)
+        self.play(Write(Act))
+        foc1 = ImageMobject("foc1.png").next_to(terms_title,DOWN)
+        foc2 = ImageMobject("foc2.png").next_to(terms_title,DOWN)
+        foc3 = ImageMobject("foc3.png").next_to(terms_title,DOWN)
+        foc4 = ImageMobject("foc4.png").next_to(terms_title,DOWN)
+        self.next_slide()
+        self.play(FadeIn(foc1))
+        self.next_slide()
+        self.play(FadeIn(foc2))
+        self.next_slide()
+        self.play(FadeIn(foc3))
+        self.next_slide()
+        self.play(FadeIn(foc4))
+        self.next_slide()
+        self.play(FadeOut(foc4,foc3,foc2,foc1,Act))
+
+        defin2 = ItemList(Item(r"Principal Focus (F) of Concave Mirror:", r" When light rays parallel to principal axis incident on a concave mirror, ", r"after refection they all meet at a point on the principal axis. ", r"This point is called principal focus (F) of concave mirror."),
+                       Item(r"Principal Focus (F) of Convex Mirror:", r" When light rays parallel to principal axis incident on a convex mirror, ", r"after refection they all appear to come from a point on the principal axis.", r"This point is called principal focus (F) of convex mirror."),
+                       Item(r"Focal Length (f) : ", r"The distance between the pole (P) and the principal focus (F) is called the focal length"),
+                        buff=MED_LARGE_BUFF).next_to(terms_title,DOWN,buff=0.2).to_corner(LEFT,buff=0.1)
+        
+        [m4,pa4,P4,C4,F4,R4,fl4]=Concave(R=4,pae=0.2,pas=0.2)
+        [m5,pa5,P5,C5,F5,R5,fl5]=Convex(R=4,pae=-0.35,pas=0.6)
+
+        ray1 = Ray(m4[0].get_all_points()[2]+4.2*LEFT,m4[0].get_all_points()[2])
+        ray2 = Ray(m4[0].get_all_points()[8]+4.2*LEFT,m4[0].get_all_points()[8])
+        ray3 = Ray(m4[0].get_all_points()[-8]+4.2*LEFT,m4[0].get_all_points()[-8])
+        ray4 = Ray(m4[0].get_all_points()[-2]+4.2*LEFT,m4[0].get_all_points()[-2])
+        ray11 = Ray(m4[0].get_all_points()[2],F4,ext=0.1)
+        ray22 = Ray(m4[0].get_all_points()[8],F4,ext=0.1)
+        ray33 = Ray(m4[0].get_all_points()[-8],F4,ext=0.1)
+        ray44 = Ray(m4[0].get_all_points()[-2],F4,ext=0.1)
+        f4 = MyDoubLabArrow(label=Tex("f",font_size=35),start=P4,end=F4,tip_length=0.1,color=RED,opacity=1).shift(1.5*DOWN)
+        inc4 = VGroup(ray1,ray2,ray3,ray4)
+        ref4 = VGroup(ray11,ray22,ray33,ray44)
+        img4= VGroup(m4,pa4,inc4,ref4,f4).next_to(defin2,RIGHT)
+
+        ray5 = Ray(m5[0].get_all_points()[2]+2.5*LEFT,m5[0].get_all_points()[2])
+        ray6 = Ray(m5[0].get_all_points()[8]+2.5*LEFT,m5[0].get_all_points()[8])
+        ray7 = Ray(m5[0].get_all_points()[-8]+2.5*LEFT,m5[0].get_all_points()[-8])
+        ray8 = Ray(m5[0].get_all_points()[-2]+2.5*LEFT,m5[0].get_all_points()[-2])
+
+        ray555 = DashedLine(start=m5[0].get_all_points()[2],end=F5)             
+        ray666 = DashedLine(start=m5[0].get_all_points()[8],end=F5)
+        ray777 = DashedLine(start=m5[0].get_all_points()[-8],end=F5)
+        ray888 = DashedLine(start=m5[0].get_all_points()[-2],end=F5)
+
+        ray55 = Ray(m5[0].get_all_points()[2],m5[0].get_all_points()[2]-1*ray555.get_unit_vector())
+        ray66 = Ray(m5[0].get_all_points()[8],m5[0].get_all_points()[8]-1*ray666.get_unit_vector())
+        ray77 = Ray(m5[0].get_all_points()[-8],m5[0].get_all_points()[-8]-1*ray777.get_unit_vector())
+        ray88 = Ray(m5[0].get_all_points()[-2],m5[0].get_all_points()[-2]-1*ray888.get_unit_vector())
+
+        f5 = MyDoubLabArrow(label=Tex("f",font_size=35),start=P5,end=F5,tip_length=0.1,color=RED,opacity=1).shift(1.5*DOWN)
+
+
+        inc5 = VGroup(ray5,ray6,ray7,ray8)
+        ref5 = VGroup(ray55,ray66,ray77,ray88,ray555,ray666,ray777,ray888)
+        img5= VGroup(m5,pa5,inc5,ref5,f5)
+        anm1 = [VGroup(m4,pa4[0:2]),inc4,VGroup(ref4,pa4[-1][0]),pa4[-1][1]]
+        anm2 = [VGroup(m5,pa5[0:2]),inc5,VGroup(ref5,pa5[-1][0]),pa5[-1][1]]
+        VGroup(img4,img5).arrange(DOWN,buff=0.1).next_to(defin2,RIGHT).align_to(defin2,UP)
+
+        defin2[0][0].set_color(ORANGE)
+        k=0
+        for subitem in defin2[0]:
+            self.play(Write(subitem))
+            self.play(Write(anm1[k]))
+            k=k+1
+            self.wait()
+            self.next_slide()
+
+        defin2[1][0].set_color(ORANGE)
+        k=0
+        for subitem in defin2[1]:
+            self.play(Write(subitem))
+            self.play(Write(anm2[k]))
+            k=k+1
+            self.wait()
+            self.next_slide()
+        
+        defin2[2][0].set_color(ORANGE)
+        for subitem in defin2[2]:
+            self.play(Write(subitem))
+            self.wait()
+            self.next_slide()
+        self.play(Write(f4),Write(f5))
+
+
+
         
 
-
-
-class Try(Slide):
-    def construct(self):
-        mylist = ItemList(Item(r"hello Tex jamd ajfdlfda majflka makfjlfdf malfkjdf malkfjadf mafldjfdklk mmdlf ", r" $y=mx+c$",pw="10 cm"),Item(r"my name is manish ",r"$s=ut+0.5at^2$",pw="2 cm"),Item(r"y&=mx+c\\",r"y&=2\times 3",math=True,dot=False),
-                        Item(r"Principal axis : ", r" An imaginary straight line passing through the pole and the centre of curvature of the mirror is called the principal axis."),).to_corner(LEFT,buff=0.1)
-        for i in mylist:
-            for j in i:
-                self.play(Write(j))
-                self.next_slide()
 
         
         
