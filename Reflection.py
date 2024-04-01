@@ -3,7 +3,7 @@ from manim import *  # or: from manimlib import *
 from manim_slides import Slide
 
 
-def MyLabeledDot(label_in:Tex| None = None,label_out:Tex| None = None,pos:Vector = DOWN,shift=[0,0,0], point=ORIGIN,radius: float = DEFAULT_DOT_RADIUS,color: ParsableManimColor = WHITE):
+def MyLabeledDot(label_in:Tex| None = None,label_out:Tex| None = None,pos:Vector = DOWN,shift=[0,0,0], point=ORIGIN,radius: float = DEFAULT_DOT_RADIUS,color = WHITE):
         if isinstance(label_in, Tex):
             radius = 0.02 + max(label_in.width, label_in.height) / 2
         
@@ -21,7 +21,7 @@ def MyLabeledDot(label_in:Tex| None = None,label_out:Tex| None = None,pos:Vector
 
 
 class MyDashLabeledLine(DashedLine):
-    def __init__(self,label: Tex|MathTex, pos = None, rel_pos: float = 0.5,bg: ParsableManimColor = BLACK, opacity:float= 0.7,rot: bool =True  , *args, **kwargs) -> None:
+    def __init__(self,label: Tex|MathTex, pos = None, rel_pos: float = 0.5,bg = BLACK, opacity:float= 0.7,rot: bool =True  , *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
         # calculating the vector for the label position
@@ -47,7 +47,7 @@ class MyDashLabeledLine(DashedLine):
         self.add(label)
 
 class MyLabeledLine(Line):
-    def __init__(self,label: Tex|MathTex, pos = None, rel_pos: float = 0.5,bg: ParsableManimColor = BLACK, opacity:float= 0.7,rot: bool =True , *args, **kwargs) -> None:
+    def __init__(self,label: Tex|MathTex, pos = None, rel_pos: float = 0.5,bg = BLACK, opacity:float= 0.7,rot: bool =True , *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
         # calculating the vector for the label position
