@@ -644,6 +644,31 @@ class SphMirror(Slide):
             self.next_slide()
         self.play(Write(f4),Write(f5))
 
+        self.next_slide()
+        self.play(FadeOut(img5,img4,defin2))
+
+        defin3 = ItemList(Item(r"Aperture :", r"The reflecting surface has a circular outline ", r"The diameter of the reflecting surface of spherical mirror is called its aperture. (i.e., Distance MN)"),
+                       Item(r"Relation between the radius of curvature (R) and Focal Length(f):", r"For spherical mirrors of small apertures, ", r"the radius of curvature is found to be equal to twice the focal length.\\", r"$R=2\times f $\\"),
+                        buff=MED_LARGE_BUFF).next_to(terms_title,DOWN,buff=0.2).to_corner(LEFT,buff=0.1)
+        
+        img.next_to(defin3,RIGHT).align_to(defin3,UP)
+        self.play(FadeIn(img))
+
+        [m6,pa6,P6,C6,F6,R6,fl6]=Concave(R=4,pae=0.4,pas=0.3)
+        f6 = MyDoubLabArrow(label=Tex("f",font_size=35),start=P6,end=F6,tip_length=0.1,color=RED,opacity=1).shift(1.5*DOWN)
+        R16 = MyDoubLabArrow(label=Tex("R",font_size=35),start=P6,end=C6,tip_length=0.1,color=ORANGE,opacity=1).shift(1.5*DOWN)
+        img7 = VGroup(m6,pa6,f6,R16).next_to(img,DOWN)
+
+
+        
+        for item in defin3:
+            item[0].set_color(GOLD_A)
+            for subitem in item:
+                self.play(Write(subitem))
+                self.wait()
+                self.next_slide()
+        self.play(Write(img7))
+
 
 
         
