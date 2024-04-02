@@ -655,7 +655,7 @@ class SphMirror(Slide):
         self.play(FadeIn(img))
 
         [m6,pa6,P6,C6,F6,R6,fl6]=Concave(R=4,pae=0.4,pas=0.3)
-        f6 = MyDoubLabArrow(label=Tex("f",font_size=35),start=P6,end=F6,tip_length=0.1,color=RED,opacity=1).shift(1.5*UP)
+        f6 = MyDoubLabArrow(label=Tex("f",font_size=35),start=P6,end=F6,tip_length=0.1,color=RED,opacity=1).shift(0.5*UP)
         R16 = MyDoubLabArrow(label=Tex("R",font_size=35),start=P6,end=C6,tip_length=0.1,color=ORANGE,opacity=1).shift(1.5*DOWN)
         img7 = VGroup(m6,pa6,f6,R16).next_to(img,DOWN)
 
