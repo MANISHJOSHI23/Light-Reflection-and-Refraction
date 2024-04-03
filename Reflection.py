@@ -647,7 +647,7 @@ class SphMirror(Slide):
         self.next_slide()
         self.play(FadeOut(img5,img4,defin2))
 
-        defin3 = ItemList(Item(r"Aperture :", r"The reflecting surface has a circular outline ", r"The diameter of the reflecting surface of spherical mirror is called its aperture. (i.e., Distance MN)"),
+        defin3 = ItemList(Item(r"Aperture :", r"The reflecting surface has a circular outline. ", r"The diameter of the reflecting surface of spherical mirror is called its aperture. "),
                        Item(r"Relation between the radius of curvature (R) and Focal Length(f):", r"For spherical mirrors of small apertures, ", r"the radius of curvature is found to be equal to twice the focal length.\\", r"$R=2\times f $\\"),
                         buff=MED_LARGE_BUFF).next_to(terms_title,DOWN,buff=0.2).to_corner(LEFT,buff=0.1)
         
@@ -656,7 +656,7 @@ class SphMirror(Slide):
 
         [m6,pa6,P6,C6,F6,R6,fl6]=Concave(R=4,pae=0.4,pas=0.3)
         f6 = MyDoubLabArrow(label=Tex("f",font_size=35),start=P6,end=F6,tip_length=0.1,color=RED,opacity=1).shift(0.5*UP)
-        R16 = MyDoubLabArrow(label=Tex("R",font_size=35),start=P6,end=C6,tip_length=0.1,color=ORANGE,opacity=1).shift(1.5*DOWN)
+        R16 = MyDoubLabArrow(label=Tex("R",font_size=35),start=P6,end=C6,tip_length=0.1,color=ORANGE,opacity=1).shift(1.4*DOWN)
         img7 = VGroup(m6,pa6,f6,R16).next_to(img,DOWN)
 
 
@@ -668,6 +668,96 @@ class SphMirror(Slide):
                 self.wait()
                 self.next_slide()
         self.play(Write(img7))
+
+
+class ImgeFor(Slide):
+    def construct(self):
+        title = Title('CHAPTER 1 : LIGHT REFLECTION AND REFRACTION',color=GREEN,match_underline_width_to_text=True)
+        self.add(title)
+        Outline = Tex('Learning Objectives :',color=BLUE,font_size=35).next_to(title,DOWN).to_corner(LEFT,buff=0.1)
+        self.add(Outline)
+        list = BulletedList('Introduction',' Reflection And Laws of reflection','Spherical Mirrors','Image formation by Spherical Mirrors','Ray Diagrams','Uses of Concave and Convex Mirrors',
+                            'Sign Convention','Mirror Formula and Magnification',font_size=35).next_to(Outline,DOWN).align_to(Outline,LEFT)
+
+        list2 = BulletedList('Refraction of Light','Refraction through a Rectangular Glass Slab','Laws of Refraction','The Refractive Index',
+                             'Refraction by Spherical Lenses',' Image Formation by Lenses \& Ray Diagrams',"Lens Formula \& Magnification","Power of a Lens",font_size=35).next_to(Outline,DOWN).next_to(list,RIGHT).align_to(list,UP)
+        
+        self.add(list,list2)
+        self.next_slide(loop=True)
+        self.play(FocusOn(list[3]))
+        self.play(Circumscribe(list[3]))
+        self.next_slide()
+        self.play(RemoveTextLetterByLetter(list2))
+        self.play(RemoveTextLetterByLetter(list))
+        self.play(RemoveTextLetterByLetter(Outline))
+        Intro_title = Title('Image formation by Spherical Mirrors', color=BLUE,match_underline_width_to_text=True)
+        self.play(ReplacementTransform(title,Intro_title))
+        self.wait()
+        self.next_slide()
+
+        Img = ItemList(Item(r"Image: ", r" If light rays coming from a point after reflection meet at another point or appear to meet at another point, then second point is called image of the first point.", r" There are two types of image, i.e.-",pw="13 cm"),
+                       Item(r" (a) Real image: ", r" When the rays of light, after reflection from a mirror, actually meet at a point, then the image formed by these rays is said to be real.", r" Real images can be obtained on a screen.",pw="13 cm"),
+                       Item(r" (b) Virtual image: ", r" When the rays of light, after reflection from a mirror, appear to meet at a point, then the image formed by these rays is said to be virtual.", r" Virtual images can't be obtained on a screen.",pw="13 cm"), buff=MED_LARGE_BUFF,
+                       ).next_to(Intro_title,DOWN).to_corner(LEFT,buff=0.1)
+        
+        for item in Img:
+            item[0].set_color(GOLD)
+            for subitem in item:
+                self.play(Write(subitem))
+                self.wait(2)
+                self.next_slide()
+        
+        self.play(Unwrite(Img))
+        Act = Tex("Activity : Image formation by a concave mirror for different positions of the object",font_size=35, color=GREEN,tex_environment="{minipage}{13cm}").next_to(Intro_title,DOWN).to_corner(LEFT,buff=0.2)
+        self.play(Write(Act))
+
+        t2 = Table(
+            [["At infinity", "At the focus F", "Highly diminished,\n point-sized", "Real and inverted"],
+             ["Beyond C", "Between F and C", "Diminished", "Real and inverted"],
+             ["At C", "At C", "Same size", "Real and inverted"],
+            ["Between C and F", "Beyond C", "Enlarged", "Real and inverted"],
+            ["At F", "At infinity", "Highly enlarged", "Real and inverted"],
+            ["Between P and F", "Behind the mirror", "Enlargede", "Virtual and erect"]],
+            col_labels=[Text("Position of the\n Object"), Text("Position of the\n Image"),Text("Size of the\n Image"),Text("Nature of the\n Image")],
+            row_labels=[Text("(1)"), Text("(2)"),Text("(3)"),Text("(4)"),Text("(5)"),Text("(6)")],
+            include_outer_lines=True,).scale(0.44).next_to(Act,DOWN).to_corner(LEFT,buff=0.8)
+        
+        t2.get_col_labels().set_color(ORANGE)
+        t2.get_row_labels().set_color(GOLD)
+        
+        self.play(Write(t2.get_horizontal_lines()),Write(t2.get_vertical_lines()))
+        self.next_slide()
+
+        for entry in t2.get_entries():
+            self.play(Write(entry))
+            self.next_slide()
+
+
+class RayMirror(Slide):
+    def construct(self):
+        title = Title('CHAPTER 1 : LIGHT REFLECTION AND REFRACTION',color=GREEN,match_underline_width_to_text=True)
+        self.add(title)
+        Outline = Tex('Learning Objectives :',color=BLUE,font_size=35).next_to(title,DOWN).to_corner(LEFT,buff=0.1)
+        self.add(Outline)
+        list = BulletedList('Introduction',' Reflection And Laws of reflection','Spherical Mirrors','Image formation by Spherical Mirrors','Ray Diagrams','Uses of Concave and Convex Mirrors',
+                            'Sign Convention','Mirror Formula and Magnification',font_size=35).next_to(Outline,DOWN).align_to(Outline,LEFT)
+
+        list2 = BulletedList('Refraction of Light','Refraction through a Rectangular Glass Slab','Laws of Refraction','The Refractive Index',
+                             'Refraction by Spherical Lenses',' Image Formation by Lenses \& Ray Diagrams',"Lens Formula \& Magnification","Power of a Lens",font_size=35).next_to(Outline,DOWN).next_to(list,RIGHT).align_to(list,UP)
+        
+        self.add(list,list2)
+        self.next_slide(loop=True)
+        self.play(FocusOn(list[4]))
+        self.play(Circumscribe(list[4]))
+        self.next_slide()
+        self.play(RemoveTextLetterByLetter(list2))
+        self.play(RemoveTextLetterByLetter(list))
+        self.play(RemoveTextLetterByLetter(Outline))
+        Intro_title = Title(' Representation of Images Formed by Spherical Mirrors Using Ray Diagrams',font_size=40, color=BLUE,match_underline_width_to_text=True)
+        self.play(ReplacementTransform(title,Intro_title))
+        self.wait()
+        self.next_slide()
+        
 
 
 
