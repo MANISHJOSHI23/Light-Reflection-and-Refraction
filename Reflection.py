@@ -1,5 +1,4 @@
 from manim import *  # or: from manimlib import *
-
 from manim_slides import Slide
 
 
@@ -221,6 +220,12 @@ def Ray(start,end,ext:float=0,pos:float=0.5,color=BLUE):
     ray = VGroup(lin,arrow)
     return ray
 
+def DashRay(start,end,ext:float=0,color=DARK_BROWN):
+    dir_lin = Line(start=start,end=end)
+    dir = dir_lin.get_length()*ext*dir_lin.get_unit_vector()
+    ray = DashedLine(start=start,end=end+dir,color=color)
+    return ray
+
 def PlaneMirror():
     # Creating convex mirror
         a2=Line(start=2*UP,end=2*DOWN,color=GREEN)
@@ -246,7 +251,7 @@ def Convex(R=6, sa=160,ang=40,dash=0.025,pas=0.75,pae=0.1):
         rad = a2.radius
         foc_len = rad/2
 
-        # Creating Prinipal axis, pole, center of curvature and focus
+        # Creating Principal axis, pole, center of curvature and focus
         pa = VGroup(Line(pol_cord+pas*rad*LEFT,cent_cord+pae*rad*RIGHT))
         dash = Dot(color=RED) #Line(start=0.1*DOWN,end=0.1*UP)
         cen = VGroup(dash.copy().move_to(cent_cord),Tex("C",font_size=30).move_to(cent_cord+0.25*DOWN))
@@ -268,7 +273,7 @@ def Concave(R=6,sa=20,ang=-40,dash=0.025,pae=0.65, pas=0.5):
         rad = a2.radius
         foc_len = rad/2
 
-        # Creating Prinipal axis, pole, center of curvature and focus
+        # Creating Principal axis, pole, center of curvature and focus
         pa = VGroup(Line(pol_cord+pae*rad*RIGHT,cent_cord+pas*rad*LEFT))
         dash = Dot(color=RED) #Line(start=0.1*DOWN,end=0.1*UP)
         cen = VGroup(dash.copy().move_to(cent_cord),Tex("C",font_size=30).move_to(cent_cord+0.25*DOWN))
@@ -359,7 +364,7 @@ class Reflection(Slide):
         self.play(RemoveTextLetterByLetter(list2))
         self.play(RemoveTextLetterByLetter(list))
         self.play(RemoveTextLetterByLetter(Outline))
-        Intro_title = Title('Reflection And Laws of Relfection', color=BLUE,match_underline_width_to_text=True)
+        Intro_title = Title('Reflection And Laws of Reflection', color=BLUE,match_underline_width_to_text=True)
         self.play(ReplacementTransform(title,Intro_title))
         self.wait()
         self.next_slide()
@@ -446,17 +451,7 @@ class Reflection(Slide):
                 self.play(Write(subitem))
                 self.wait()
                 self.next_slide()
-        # Img = ItemList(Item(r"Image: ", r" If light rays coming from a point after reflection meet at another point or appear to meet at another point, then second point is called image of the first point.", r" There are two types of image, i.e.-",pw="13 cm"),
-        #                Item(r" (a) Real image: ", r" When the rays of light, after reflection from a mirror, actually meet at a point, then the image formed by these rays is said to be real.", r" Real images can be obtained on a screen."),
-        #                Item(r" (b) Virtual image: ", r" When the rays of light, after reflection from a mirror, appear to meet at a point, then the image formed by these rays is said to be virtual.", r" Virtual images can't be obtained on a screen."), buff=MED_LARGE_BUFF,
-        #                ).next_to(title,DOWN).to_corner(LEFT,buff=0.1)
         
-        # for item in Img:
-        #     item[0].set_color(GOLD)
-        #     for subitem in item:
-        #         self.play(Write(subitem))
-        #         self.wait()
-        #         self.next_slide()
 
 
 class SphMirror(Slide):
@@ -668,6 +663,7 @@ class SphMirror(Slide):
                 self.wait()
                 self.next_slide()
         self.play(Write(img7))
+        self.play(Write(SurroundingRectangle(defin3[1][-1])))
 
 
 class ImgeFor(Slide):
@@ -717,7 +713,7 @@ class ImgeFor(Slide):
              ["At C", "At C", "Same size", "Real and inverted"],
             ["Between C and F", "Beyond C", "Enlarged", "Real and inverted"],
             ["At F", "At infinity", "Highly enlarged", "Real and inverted"],
-            ["Between P and F", "Behind the mirror", "Enlargede", "Virtual and erect"]],
+            ["Between P and F", "Behind the mirror", "Enlarged", "Virtual and erect"]],
             col_labels=[Text("Position of the\n Object"), Text("Position of the\n Image"),Text("Size of the\n Image"),Text("Nature of the\n Image")],
             row_labels=[Text("(1)"), Text("(2)"),Text("(3)"),Text("(4)"),Text("(5)"),Text("(6)")],
             include_outer_lines=True,).scale(0.44).next_to(Act,DOWN).to_corner(LEFT,buff=0.8)
@@ -756,14 +752,69 @@ class RayMirror(Slide):
         Intro_title = Title(' Representation of Images Formed by Spherical Mirrors Using Ray Diagrams',font_size=40, color=BLUE,match_underline_width_to_text=True)
         self.play(ReplacementTransform(title,Intro_title))
         self.wait()
+        steps = ItemList(Item(r"Consider an extended object, of finite size, placed in front of a spherical mirror."),
+                         Item(r"Each small portion of the extended object acts like a point source."),
+                         Item( r"An infinite number of rays originate from each of these points."),
+                         Item(r"However, it is more convenient to consider only two rays, for the sake of clarity of the ray diagram."),
+                       Item(r"The intersection of at least two reflected rays give the position of image of the point object."),
+                        buff=MED_LARGE_BUFF).next_to(Intro_title,DOWN,buff=0.3).to_corner(LEFT,buff=0.1)
+
+        img1 = ImageMobject("imf1.png")
+        img2 = ImageMobject("imf2.png")
+        img3 = ImageMobject("imf3.png")
+        img4 = ImageMobject("imf4.png")
+        img5 = ImageMobject("imf5.png")
+        g1= Group(img1,img2,img3,img4,img5).next_to(steps,RIGHT)
         self.next_slide()
+        for i in range(len(steps)):
+            self.play(Write(steps[i]))
+            self.play(FadeIn(g1[i]))
+            self.wait(2)
+            self.next_slide()
+
+        self.play(FadeOut(g1,steps))
+
+        raylbl= Tex("Any two of the following rays can be considered for locating the image.",font_size=35,color=RED_A,tex_environment="{minipage}{13cm}").next_to(Intro_title,DOWN).to_corner(LEFT,buff=0.1)
+        self.play(Write(raylbl))
+
+        Ray1 = ItemList(Item(r"(i)", r" A ray of light which is parallel to the principal axis of a spherical mirror,", r"  after reflection, will pass through the principal focus in case of a concave mirror ", r"or appear to diverge from the principal focus in case of a convex mirror.",pw="13 cm"), buff=MED_LARGE_BUFF,
+                       ).next_to(raylbl,DOWN).to_corner(LEFT,buff=0.2)
+
+        [m4,pa4,P4,C4,F4,R4,fl4]=Concave(R=5,pae=0.05,pas=0.05)
+        [m5,pa5,P5,C5,F5,R5,fl5]=Convex(R=5,pae=0.05,pas=0.6)
+
+        ray1 = Ray(m4[0].get_all_points()[2]+4.2*LEFT,m4[0].get_all_points()[2])
+        ray11 = Ray(m4[0].get_all_points()[2],F4,ext=0.1)
+        norm1 = DashedLine(start=C4,end=m4[0].get_all_points()[2],color=GRAY_BROWN)
+        i1 = Angle(ray1[0],norm1,radius=0.9,quadrant=(-1,-1),color=ORANGE)
+        r1 = Angle(ray11[0],norm1,radius=0.9,quadrant=(1,-1),other_angle=True,color=YELLOW)
+        ray2 = Ray(m5[0].get_all_points()[2]+3*LEFT,m5[0].get_all_points()[2],pos=0.4)
+        norm2 = DashRay(start=C5,end=m5[0].get_all_points()[2],ext=0.3,color=GRAY_BROWN)
+        ray222 = DashedLine(start=m5[0].get_all_points()[2],end=F5) 
+        ray22= Ray(m5[0].get_all_points()[2],m5[0].get_all_points()[2]-1.5*ray222.get_unit_vector(),pos=0.8)
+        i2 = Angle(ray2[0],norm2,radius=0.9,quadrant=(-1,1),other_angle=True,color=ORANGE)
+        r2 = Angle(ray22[0],norm2,radius=0.9,quadrant=(1,1),color=YELLOW)
+
+        i1lbl = Tex(r"$\angle i$",font_size = 25,color=ORANGE).next_to(i1,LEFT)
+        r1lbl = Tex(r"$\angle r$",font_size = 25,color=YELLOW).next_to(r1,LEFT).shift(0.15*DOWN)
+
+        i2lbl= i1lbl.copy().next_to(i2,LEFT)
+        r2lbl= r1lbl.copy().next_to(r2,LEFT).shift(0.15*UP)
+
+        conc1 = VGroup(m4,pa4,ray1,ray11,norm1,i1,r1,i1lbl,r1lbl).next_to(Ray1,DOWN,buff=0.6).to_corner(LEFT,buff=0.1)
+        conv1 = VGroup(m5,pa5,ray2,ray22,ray222,norm2,i2,r2,i2lbl,r2lbl).next_to(conc1,RIGHT).align_to(conc1,DOWN).to_corner(RIGHT,buff=0.1)
+
+        self.play(Write(VGroup(m4,pa4)),Write(VGroup(m5,pa5)))
+
+        anm = [VGroup(ray1,ray2,norm1,norm2,i1,i2,i1lbl,i2lbl),VGroup(ray11,r1,r1lbl), VGroup(ray22,ray222,r2,r2lbl)]
+        
+        for item in Ray1:
+            item[0].set_color(GOLD_A)
+            for i in range(len(item)):
+                self.play(Write(item[i]))
+                if i !=0:
+                    self.play(Write(anm[i-1]))
+                self.wait(2)
+                self.next_slide()
         
 
-
-
-        
-
-
-        
-        
-      
