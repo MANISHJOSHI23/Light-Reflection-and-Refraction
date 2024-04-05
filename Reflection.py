@@ -211,10 +211,11 @@ class TransformByGlyphMap(AnimationGroup):
                 lag_ratio=0.5
                 )
             
-def Ray(start,end,ext:float=0,pos:float=0.5,color=BLUE):
+def Ray(start,end,ext:float=0,eext:float = 0,pos:float=0.5,color=BLUE):
     dir_lin = Line(start=start,end=end)
     dir = dir_lin.get_length()*ext*dir_lin.get_unit_vector()
-    lin = Line(start=start,end=end+dir,color=color)
+    edir = dir_lin.get_length()*eext*dir_lin.get_unit_vector()
+    lin = Line(start=start-edir,end=end+dir,color=color)
     arrow_start = lin.get_start()+pos*lin.get_length()*lin.get_unit_vector()
     arrow = Arrow(start=arrow_start-0.1*lin.get_unit_vector(),end=arrow_start+0.1*lin.get_unit_vector(),tip_shape=StealthTip,max_tip_length_to_length_ratio=0.75,color=color)
     ray = VGroup(lin,arrow)
@@ -780,18 +781,18 @@ class RayMirror(Slide):
         Ray1 = ItemList(Item(r"(i)", r" A ray of light which is parallel to the principal axis of a spherical mirror,", r"  after reflection, will pass through the principal focus in case of a concave mirror ", r"or appear to diverge from the principal focus in case of a convex mirror.",pw="13 cm"), buff=MED_LARGE_BUFF,
                        ).next_to(raylbl,DOWN).to_corner(LEFT,buff=0.2)
 
-        [m4,pa4,P4,C4,F4,R4,fl4]=Concave(R=5,pae=0.05,pas=0.05)
-        [m5,pa5,P5,C5,F5,R5,fl5]=Convex(R=5,pae=0.05,pas=0.6)
+        [m1,pa1,P1,C1,F1,R1,fl1]=Concave(R=5,pae=0.05,pas=0.05)
+        [m2,pa2,P2,C2,F2,R2,fl2]=Convex(R=5,pae=0.05,pas=0.6)
 
-        ray1 = Ray(m4[0].get_all_points()[2]+4.2*LEFT,m4[0].get_all_points()[2])
-        ray11 = Ray(m4[0].get_all_points()[2],F4,ext=0.1)
-        norm1 = DashedLine(start=C4,end=m4[0].get_all_points()[2],color=GRAY_BROWN)
+        ray1 = Ray(m1[0].get_all_points()[2]+4.2*LEFT,m1[0].get_all_points()[2])
+        ray11 = Ray(m1[0].get_all_points()[2],F1,ext=0.1)
+        norm1 = DashedLine(start=C1,end=m1[0].get_all_points()[2],color=GRAY_BROWN)
         i1 = Angle(ray1[0],norm1,radius=0.9,quadrant=(-1,-1),color=ORANGE)
         r1 = Angle(ray11[0],norm1,radius=0.9,quadrant=(1,-1),other_angle=True,color=YELLOW)
-        ray2 = Ray(m5[0].get_all_points()[2]+3*LEFT,m5[0].get_all_points()[2],pos=0.4)
-        norm2 = DashRay(start=C5,end=m5[0].get_all_points()[2],ext=0.3,color=GRAY_BROWN)
-        ray222 = DashedLine(start=m5[0].get_all_points()[2],end=F5) 
-        ray22= Ray(m5[0].get_all_points()[2],m5[0].get_all_points()[2]-1.5*ray222.get_unit_vector(),pos=0.8)
+        ray2 = Ray(m2[0].get_all_points()[2]+3*LEFT,m2[0].get_all_points()[2],pos=0.4)
+        norm2 = DashRay(start=C2,end=m2[0].get_all_points()[2],ext=0.3,color=GRAY_BROWN)
+        ray222 = DashedLine(start=m2[0].get_all_points()[2],end=F2) 
+        ray22= Ray(m2[0].get_all_points()[2],m2[0].get_all_points()[2]-1.5*ray222.get_unit_vector(),pos=0.8)
         i2 = Angle(ray2[0],norm2,radius=0.9,quadrant=(-1,1),other_angle=True,color=ORANGE)
         r2 = Angle(ray22[0],norm2,radius=0.9,quadrant=(1,1),color=YELLOW)
 
@@ -801,10 +802,10 @@ class RayMirror(Slide):
         i2lbl= i1lbl.copy().next_to(i2,LEFT)
         r2lbl= r1lbl.copy().next_to(r2,LEFT).shift(0.15*UP)
 
-        conc1 = VGroup(m4,pa4,ray1,ray11,norm1,i1,r1,i1lbl,r1lbl).next_to(Ray1,DOWN,buff=0.6).to_corner(LEFT,buff=0.1)
-        conv1 = VGroup(m5,pa5,ray2,ray22,ray222,norm2,i2,r2,i2lbl,r2lbl).next_to(conc1,RIGHT).align_to(conc1,DOWN).to_corner(RIGHT,buff=0.1)
+        conc1 = VGroup(m1,pa1,ray1,ray11,norm1,i1,r1,i1lbl,r1lbl).next_to(Ray1,DOWN,buff=0.6).to_corner(LEFT,buff=0.1)
+        conv1 = VGroup(m2,pa2,ray2,ray22,ray222,norm2,i2,r2,i2lbl,r2lbl).next_to(conc1,RIGHT).align_to(conc1,DOWN).to_corner(RIGHT,buff=0.1)
 
-        self.play(Write(VGroup(m4,pa4)),Write(VGroup(m5,pa5)))
+        self.play(Write(VGroup(m1,pa1)),Write(VGroup(m2,pa2)))
 
         anm = [VGroup(ray1,ray2,norm1,norm2,i1,i2,i1lbl,i2lbl),VGroup(ray11,r1,r1lbl), VGroup(ray22,ray222,r2,r2lbl)]
         
@@ -817,4 +818,499 @@ class RayMirror(Slide):
                 self.wait(2)
                 self.next_slide()
         
+        self.play(FadeOut(conc1,conv1,Ray1))
 
+        Ray2 = ItemList(Item(r"(ii)", r" A ray passing through the principal focus of a concave mirror", r"  or a ray which is directed towards the principal focus of a convex mirror, ", r" after reflection, will emerge parallel to the principal axis.",pw="13 cm"), buff=MED_LARGE_BUFF,
+                       ).next_to(raylbl,DOWN).to_corner(LEFT,buff=0.2)
+        
+        [m3,pa3,P3,C3,F3,R3,fl3]=Concave(R=5,pae=0.05,pas=0.05)
+        [m4,pa4,P4,C4,F4,R4,fl4]=Convex(R=5,pae=0.05,pas=0.6)
+        
+        ray3 = Ray(F3,m3[0].get_all_points()[-5],eext=0.4)
+        ray33 = Ray(m3[0].get_all_points()[-5],m3[0].get_all_points()[-5]+4.2*LEFT)
+        norm3 = DashedLine(start=C3,end=m3[0].get_all_points()[-5],color=GRAY_BROWN)
+        i3 = Angle(ray3[0],norm3,radius=0.9,quadrant=(-1,-1),color=ORANGE)
+        r3 = Angle(ray33[0],norm3,radius=0.9,quadrant=(1,-1),other_angle=True,color=YELLOW)
+        i3lbl = Tex(r"$\angle i$",font_size = 25,color=ORANGE).next_to(i3,LEFT).shift(0.15*UP)
+        r3lbl = Tex(r"$\angle r$",font_size = 25,color=YELLOW).next_to(r3,LEFT)
+
+        ray444 = DashedLine(start=m4[0].get_all_points()[6],end=F4) 
+        ray4 = Ray(m4[0].get_all_points()[6]-2.5*ray444.get_unit_vector(),m4[0].get_all_points()[6],pos=0.3)
+
+        norm4 = DashRay(start=C4,end=m4[0].get_all_points()[6],ext=0.3,color=GRAY_BROWN)
+        ray44= Ray(m4[0].get_all_points()[6],m4[0].get_all_points()[6]+3*LEFT,pos=0.7)
+        i4 = Angle(ray4[0],norm4,radius=0.9,quadrant=(-1,1),color=ORANGE)
+        r4 = Angle(ray44[0],norm4,radius=0.9,quadrant=(1,1),other_angle=True,color=YELLOW)
+        i4lbl= i1lbl.copy().next_to(i4,LEFT).shift(0.15*UP)
+        r4lbl= r1lbl.copy().next_to(r4,LEFT)
+
+
+        conc2 = VGroup(m3,pa3,ray3,ray33,norm3,i3,r3,i3lbl,r3lbl).next_to(Ray2,DOWN,buff=0.6).to_corner(LEFT,buff=0.1)
+        conv2 = VGroup(m4,pa4,ray4,ray44,ray444,norm4,i4,r4,i4lbl,r4lbl).next_to(conc2,RIGHT).align_to(conc2,DOWN).to_corner(RIGHT,buff=0.1)
+
+        anm2 = [VGroup(ray3,norm3,i3,i3lbl),VGroup(ray4,ray444,norm4,i4,i4lbl), VGroup(ray33,r3,r3lbl,ray44,r4,r4lbl)]
+
+        self.play(Write(VGroup(m3,pa3)),Write(VGroup(m4,pa4)))
+
+
+        for item in Ray2:
+            item[0].set_color(GOLD_A)
+            for i in range(len(item)):
+                self.play(Write(item[i]))
+                if i !=0:
+                    self.play(Write(anm2[i-1]))
+                self.wait(2)
+                self.next_slide()
+
+        self.play(FadeOut(conc2,conv2,Ray2))
+                
+        
+        Ray3 = ItemList(Item(r"(iii)", r" A ray passing through the centre of curvature of a concave mirror", r"  or directed in the direction of the centre of curvature of a convex mirror, ", r" after reflection, is reflected back along the same path.",pw="13 cm"), buff=MED_LARGE_BUFF,
+                       ).next_to(raylbl,DOWN).to_corner(LEFT,buff=0.2)
+        
+        [m5,pa5,P5,C5,F5,R5,fl5]=Concave(R=5,pae=0.05,pas=0.05)
+        [m6,pa6,P6,C6,F6,R6,fl6]=Convex(R=5,pae=0.05,pas=0.5)
+        
+        ray5 = Ray(C5,m5[0].get_all_points()[-5],eext=0.1,pos=0.3)
+        ray55 = Ray(m5[0].get_all_points()[-5],C5,ext=0.1,pos=0.3)
+        norm5 = DashedLine(start=C5,end=m5[0].get_all_points()[-5],color=GRAY_BROWN)
+
+        ray666 = DashedLine(start=m6[0].get_all_points()[6],end=C6) 
+        ray6 = Ray(m6[0].get_all_points()[6]-2.5*ray666.get_unit_vector(),m6[0].get_all_points()[6],pos=0.3)
+
+        norm6 = DashRay(start=C6,end=m6[0].get_all_points()[6],ext=0.3,color=GRAY_BROWN)
+        ray66= Ray(m6[0].get_all_points()[6],m6[0].get_all_points()[6]-2.5*ray666.get_unit_vector(),pos=0.3)
+
+        conc3 = VGroup(m5,pa5,ray5,ray55,norm5).next_to(Ray3,DOWN,buff=0.6).to_corner(LEFT,buff=0.1)
+        conv3 = VGroup(m6,pa6,ray6,ray66,ray666,norm6).next_to(conc3,RIGHT).align_to(conc3,DOWN).to_corner(RIGHT,buff=0.1)
+
+        anm3 = [VGroup(ray5,norm5),VGroup(ray6,ray666,norm6), VGroup(ray55,ray66)]
+
+        self.play(Write(VGroup(m5,pa5)),Write(VGroup(m6,pa6)))
+
+
+        for item in Ray3:
+            item[0].set_color(GOLD_A)
+            for i in range(len(item)):
+                self.play(Write(item[i]))
+                if i !=0:
+                    self.play(Write(anm3[i-1]))
+                self.wait(2)
+                self.next_slide()
+
+    
+class ImgConc(Slide):
+    def construct(self):
+        Intro_title = Title(' Image formation by Concave Mirror ',font_size=40, color=BLUE,match_underline_width_to_text=True)
+        self.play(Write(Intro_title))
+        self.next_slide()
+        pos= Tex(r"Position of Object (i): ", r"At infinity",font_size=35,color=YELLOW,tex_environment="{minipage}{13cm}").next_to(Intro_title,DOWN).to_corner(LEFT,buff=0.1)
+        pos[0].set_color(RED)
+        self.play(Write(pos))
+        self.next_slide()
+
+        [m1,pa1,P1,C1,F1,R1,fl1]=Concave(R=6,pae=0.05,pas=0.05)
+        pi = m1[0].get_all_points()[4]
+        pi2 = m1[0].get_all_points()[10]
+        obj1 = Arrow(start=C1+3*LEFT,end=C1+3*LEFT+[0,pi[1],0],color=RED,tip_length=0.2,buff=0)
+        dline = DashedLine(start=C1, end=C1+3*LEFT)
+        obj1lbl = Tex(r"Object",font_size=30).next_to(obj1,DOWN)
+        iray1 = VGroup(DashedLine(start=C1+3*LEFT+[0,pi[1],0], end=C1+[0,pi[1],0],color=BLUE), Ray(C1+[0,pi[1],0],pi,pos=0.3))
+        iray2 = VGroup(DashedLine(start=C1+3*LEFT+[0,pi2[1],0], end=C1+[0,pi2[1],0],color=BLUE), Ray(C1+[0,pi2[1],0],pi2,pos=0.3))
+        rray1 = Ray(pi,F1,ext=0.2,pos=0.3)
+        rray2 = Ray(pi2,F1,ext=0.2)
+        imarrow = CurvedArrow(F1,F1+0.5*DOWN+RIGHT,color=ORANGE,tip_length=0.1)
+        imlbl = Tex(r"Image",font_size=30).move_to(imarrow.get_tip()).shift(0.4*RIGHT)
+
+        img1 = VGroup(m1,pa1,dline,obj1,obj1lbl,iray1,iray2,rray1,rray2,imarrow,imlbl)
+
+        anm1 = [VGroup(m1,pa1),VGroup(dline,obj1,obj1lbl),iray1,rray1,iray2,rray2,VGroup(imarrow,imlbl)]
+
+        t1 = Table(
+            [["At the focus F", "Highly diminished, point-sized", "Real and inverted"]],
+            col_labels=[Text("Position of the Image"),Text("Size of the Image"),Text("Nature of the Image")],
+            include_outer_lines=True,).scale(0.44).to_edge(DOWN).to_corner(LEFT,buff=0.8)
+        
+        t1.get_col_labels().set_color(ORANGE)
+
+        for item in anm1:
+            self.play(Write(item))
+            self.wait(2)
+            self.next_slide()
+
+        self.play(Write(t1.get_horizontal_lines()),Write(t1.get_vertical_lines()))
+        self.wait(2)
+        self.next_slide()
+
+        for j in range(3):
+            for i in t1.get_columns()[j]:
+                self.play(Write(i))
+                self.next_slide()
+        
+        self.play(Unwrite(t1),Unwrite(img1),Unwrite(pos))
+        self.wait(2)
+        self.next_slide()
+
+
+        # 2nd Diagram
+
+        pos2= Tex(r"Position of Object (ii): ", r"Beyond C",font_size=35,color=YELLOW,tex_environment="{minipage}{13cm}").next_to(Intro_title,DOWN).to_corner(LEFT,buff=0.1)
+        pos2[0].set_color(RED)
+        self.play(Write(pos2))
+        self.next_slide()
+
+        [m2,pa2,P2,C2,F2,R2,fl2]=Concave(R=6,pae=0.05,pas=0.5)
+        pi = m2[0].get_all_points()[4]
+        obj2 = Arrow(start=C2+2*LEFT,end=C2+2*LEFT+[0,pi[1],0],color=RED,tip_length=0.2,buff=0)
+        obj2lbl = Tex(r"Object",font_size=30).next_to(obj2,DOWN)
+        iray3 =  Ray(C2+2*LEFT+[0,pi[1],0],pi)
+        iray4 = Ray(C2+2*LEFT+[0,pi[1],0],F2,ext=0.585)
+        rray3 = Ray(pi,F2,ext=1,pos=0.3)
+        rray4 = Ray(iray4[0].get_end(),iray4[0].get_end()+6*LEFT)
+        impos = line_intersection((rray3[0].get_start(),rray3[0].get_end()),(rray4[0].get_start(),rray4[0].get_end()))
+        imarrow2 = Arrow(start=[impos[0],0,0],end=impos,color=ORANGE,tip_length=0.2,buff=0)
+        imlbl2 = Tex(r"Image",font_size=30).next_to(imarrow2,LEFT)
+
+        img2 = VGroup(m2,pa2,obj2,obj2lbl,iray3,iray4,rray3,rray4,imarrow2,imlbl2)
+
+        anm2 = [VGroup(m2,pa2),VGroup(obj2,obj2lbl),iray3,rray3,iray4,rray4,VGroup(imarrow2,imlbl2)]
+
+        t2 = Table(
+            [["Between F and C", "Diminished", "Real and inverted"]],
+            col_labels=[Text("Position of the Image"),Text("Size of the Image"),Text("Nature of the Image")],
+            include_outer_lines=True,).scale(0.44).to_edge(DOWN).to_corner(LEFT,buff=0.8)
+        
+        t2.get_col_labels().set_color(ORANGE)
+
+        for item in anm2:
+            self.play(Write(item))
+            self.wait(2)
+            self.next_slide()
+
+        self.play(Write(t2.get_horizontal_lines()),Write(t2.get_vertical_lines()))
+        self.wait(2)
+        self.next_slide()
+
+        for j in range(3):
+            for i in t2.get_columns()[j]:
+                self.play(Write(i))
+                self.next_slide()
+        
+        self.play(Unwrite(t2),Unwrite(img2),Unwrite(pos2))
+        self.wait(2)
+        self.next_slide()
+
+
+        # 3rd Diagram
+
+        pos3= Tex(r"Position of Object (iii): ", r"At C",font_size=35,color=YELLOW,tex_environment="{minipage}{13cm}").next_to(Intro_title,DOWN).to_corner(LEFT,buff=0.1)
+        pos3[0].set_color(RED)
+        self.play(Write(pos3))
+        self.next_slide()
+
+        [m3,pa3,P3,C3,F3,R3,fl3]=Concave(R=6,pae=0.05,pas=0.2)
+        pi = m3[0].get_all_points()[6]
+        pi2 = m3[0].get_all_points()[-7]
+        obj3 = Arrow(start=C3,end=C3+[0,pi[1],0],color=RED,tip_length=0.2,buff=0)
+        obj3lbl = Tex(r"Object",font_size=30).next_to(obj3,LEFT)
+        iray5 =  Ray(C3+[0,pi[1],0],pi)
+        iray6 = Ray(C3+[0,pi[1],0],pi2,pos=0.3)
+        rray5 = Ray(pi,F3,ext=1.4,pos=0.3)
+        imarrow3 = Arrow(start=C3,end=C3+[0,pi2[1],0],color=ORANGE,tip_length=0.2,buff=0)
+        rray6 = Ray(pi2,C3+[0,pi2[1],0],ext=0.2)
+        imlbl3 = Tex(r"Image",font_size=30).next_to(imarrow3,LEFT)
+
+        img3 = VGroup(m3,pa3,obj3,obj3lbl,iray5,iray6,rray5,rray6,imarrow3,imlbl3)
+
+        anm3 = [VGroup(m3,pa3),VGroup(obj3,obj3lbl),iray5,rray5,iray6,rray6,VGroup(imarrow3,imlbl3)]
+
+        t3 = Table(
+            [["At C", "Same size", "Real and inverted"]],
+            col_labels=[Text("Position of the Image"),Text("Size of the Image"),Text("Nature of the Image")],
+            include_outer_lines=True,).scale(0.44).to_edge(DOWN).to_corner(LEFT,buff=0.8)
+        
+        t3.get_col_labels().set_color(ORANGE)
+
+        for item in anm3:
+            self.play(Write(item))
+            self.wait(2)
+            self.next_slide()
+
+        self.play(Write(t3.get_horizontal_lines()),Write(t3.get_vertical_lines()))
+        self.wait(2)
+        self.next_slide()
+
+        for j in range(3):
+            for i in t3.get_columns()[j]:
+                self.play(Write(i))
+                self.next_slide()
+        
+        self.play(Unwrite(t3),Unwrite(img3),Unwrite(pos3))
+        self.wait(2)
+        self.next_slide()
+
+        # 4th Diagram
+
+        pos4= Tex(r"Position of Object (iv): ", r"Between C and F",font_size=35,color=YELLOW,tex_environment="{minipage}{13cm}").next_to(Intro_title,DOWN).to_corner(LEFT,buff=0.1)
+        pos4[0].set_color(RED)
+        self.play(Write(pos4))
+        self.next_slide()
+
+        [m4,pa4,P4,C4,F4,R4,fl4]=Concave(R=6,pae=0.05,pas=0.5)
+        pi = m4[0].get_all_points()[6]
+        obj4 = Arrow(start=C4+1*RIGHT,end=C4+1*RIGHT+[0,pi[1],0],color=RED,tip_length=0.2,buff=0)
+        obj4lbl = Tex(r"Object",font_size=30).next_to(obj4,DOWN)
+        iray7 =  Ray(C4+1*RIGHT+[0,pi[1],0],pi)
+        iray8 = Ray(C4+1*RIGHT+[0,pi[1],0],F4,ext=1.372)
+        rray7 = Ray(pi,F4,ext=1.7,pos=0.3)
+        rray8 = Ray(iray8[0].get_end(),iray8[0].get_end()+8*LEFT)
+        impos = line_intersection((rray7[0].get_start(),rray7[0].get_end()),(rray8[0].get_start(),rray8[0].get_end()))
+        imarrow4 = Arrow(start=[impos[0],0,0],end=impos,color=ORANGE,tip_length=0.2,buff=0)
+        imlbl4 = Tex(r"Image",font_size=30).next_to(imarrow4,LEFT)
+
+        img4 = VGroup(m4,pa4,obj4,obj4lbl,iray7,iray8,rray7,rray8,imarrow4,imlbl4)
+
+        anm4 = [VGroup(m4,pa4),VGroup(obj4,obj4lbl),iray7,rray7,iray8,rray8,VGroup(imarrow4,imlbl4)]
+
+        t4 = Table(
+            [["Beyond C", "Enlarged", "Real and inverted"]],
+            col_labels=[Text("Position of the Image"),Text("Size of the Image"),Text("Nature of the Image")],
+            include_outer_lines=True,).scale(0.44).to_edge(DOWN).to_corner(LEFT,buff=0.8)
+        
+        t4.get_col_labels().set_color(ORANGE)
+
+        for item in anm4:
+            self.play(Write(item))
+            self.wait(2)
+            self.next_slide()
+
+        self.play(Write(t4.get_horizontal_lines()),Write(t4.get_vertical_lines()))
+        self.wait(2)
+        self.next_slide()
+
+        for j in range(3):
+            for i in t4.get_columns()[j]:
+                self.play(Write(i))
+                self.next_slide()
+        
+        self.play(Unwrite(t4),Unwrite(img4),Unwrite(pos4))
+        self.wait(2)
+        self.next_slide()
+
+# 5th Diagram
+
+        pos5= Tex(r"Position of Object (v): ", r"At F",font_size=35,color=YELLOW,tex_environment="{minipage}{13cm}").next_to(Intro_title,DOWN).to_corner(LEFT,buff=0.1)
+        pos5[0].set_color(RED)
+        self.play(Write(pos5))
+        self.next_slide()
+
+        [m5,pa5,P5,C5,F5,R5,fl5]=Concave(R=6,pae=0.05,pas=0.5)
+        pi = m5[0].get_all_points()[7]
+        obj5 = Arrow(start=F5,end=F5+[0,pi[1],0],color=RED,tip_length=0.2,buff=0)
+        obj5lbl = Tex(r"Object",font_size=30).next_to(obj5,1.5*DOWN)
+        iray9 =  Ray(F5+[0,pi[1],0],pi)
+        dline = DashedLine(start=C5,end=F1+[0,pi[1],0])
+        iray10 = Ray(F5+[0,pi[1],0],F5+[0,pi[1],0]+2*dline.get_unit_vector(),ext=0.4)
+        rray9 = Ray(pi,F5,ext=1.7,pos=0.3)
+        rray10 = Ray(iray10[0].get_end(),C5,ext=0.4)
+        # impos = line_intersection((rray9[0].get_start(),rray9[0].get_end()),(rray10[0].get_start(),rray10[0].get_end()))
+        # imarrow5 = Arrow(start=[impos[0],0,0],end=impos,color=ORANGE,tip_length=0.2,buff=0)
+        imlbl5 = Tex(r"At infinity",font_size=30).next_to(rray10,DL)
+
+        img5 = VGroup(m5,pa5,obj5,obj5lbl,iray9,dline,iray10,rray9,rray10,imlbl5)
+
+        anm5 = [VGroup(m5,pa5),VGroup(obj5,obj5lbl),iray9,rray9,VGroup(iray10,dline),rray10,imlbl5]
+
+        t5 = Table(
+            [["At infinity", "Highly enlarged", "Real and inverted"]],
+            col_labels=[Text("Position of the Image"),Text("Size of the Image"),Text("Nature of the Image")],
+            include_outer_lines=True,).scale(0.44).to_edge(DOWN).to_corner(LEFT,buff=0.8)
+        
+        t5.get_col_labels().set_color(ORANGE)
+
+        for item in anm5:
+            self.play(Write(item))
+            self.wait(2)
+            self.next_slide()
+
+        self.play(Write(t5.get_horizontal_lines()),Write(t5.get_vertical_lines()))
+        self.wait(2)
+        self.next_slide()
+
+        for j in range(3):
+            for i in t5.get_columns()[j]:
+                self.play(Write(i))
+                self.next_slide()
+        
+        self.play(Unwrite(t5),Unwrite(img5),Unwrite(pos5))
+        self.wait(2)
+        self.next_slide()
+
+
+        # 6th Diagram
+
+        pos6= Tex(r"Position of Object (vi): ", r"Between Pole (P) and Focus (F)",font_size=35,color=YELLOW,tex_environment="{minipage}{13cm}").next_to(Intro_title,DOWN).to_corner(LEFT,buff=0.1)
+        pos6[0].set_color(RED)
+        self.play(Write(pos6))
+        self.next_slide()
+
+        [m6,pa6,P6,C6,F6,R6,fl6]=Concave(R=6,pae=1,pas=0.05)
+        pi = m6[0].get_all_points()[7]
+        obj6 = Arrow(start=F6+RIGHT,end=F6+RIGHT+[0,pi[1],0],color=RED,tip_length=0.2,buff=0)
+        obj6lbl = Tex(r"Object",font_size=30).next_to(obj6,DOWN)
+        iray11 =  Ray(F6+RIGHT+[0,pi[1],0],pi)
+        dline = DashedLine(start=C6,end=F6+RIGHT+[0,pi[1],0])
+        iray12 = Ray(F6+RIGHT+[0,pi[1],0],F6+RIGHT+[0,pi[1],0]+2*dline.get_unit_vector(),ext=-0.05)
+        rray11 = Ray(pi,F5,ext=1,pos=0.3)
+        rray12 = Ray(iray12[0].get_end(),C6,ext=0.1)
+        r11ext = DashRay(rray11[0].get_start(),rray11[0].get_start()-2*rray11[0].get_unit_vector(),ext=1.9,color=BLUE)
+        r12ext = DashRay(rray12[0].get_start(),rray12[0].get_start()-2*rray12[0].get_unit_vector(),ext=1.9,color=BLUE)
+        impos = line_intersection((r11ext.get_start(),r11ext.get_end()),(r12ext.get_start(),r12ext.get_end()))
+        imarrow6 = Arrow(start=[impos[0],0,0],end=impos,color=ORANGE,tip_length=0.2,buff=0)
+        imlbl6 = Tex(r"Image (Virtual)",font_size=30).next_to(imarrow6,LEFT)
+
+        img6 = VGroup(m6,pa6,obj6,obj6lbl,iray11,dline,iray12,rray11,rray12,r11ext,imarrow6,imlbl6,r12ext).next_to(pos6,DOWN,buff=0).to_corner(LEFT).shift(0.4*UP)
+
+        anm6 = [VGroup(m6,pa6),VGroup(obj6,obj6lbl),iray11,rray11,VGroup(iray12,dline),rray12,VGroup(r11ext,r12ext),VGroup(imarrow6,imlbl6)]
+
+        t6 = Table(
+            [["Behind the mirror", "Enlarged", "Virtual and erect"]],
+            col_labels=[Text("Position of the Image"),Text("Size of the Image"),Text("Nature of the Image")],
+            include_outer_lines=True,).scale(0.44).to_edge(DOWN,buff=0).to_corner(LEFT,buff=0.8)
+        
+        t6.get_col_labels().set_color(ORANGE)
+
+        for item in anm6:
+            self.play(Write(item))
+            self.wait(2)
+            self.next_slide()
+
+        self.play(Write(t6.get_horizontal_lines()),Write(t6.get_vertical_lines()))
+        self.wait(2)
+        self.next_slide()
+
+        for j in range(3):
+            for i in t6.get_columns()[j]:
+                self.play(Write(i))
+                self.next_slide()
+        
+        self.play(Unwrite(t6),Unwrite(img6),Unwrite(pos6))
+        self.wait(2)
+        self.next_slide()
+
+
+
+class ImgConv(Slide):
+    def construct(self):
+        Intro_title = Title(' Image formation by Convex Mirror ',font_size=40, color=BLUE,match_underline_width_to_text=True)
+        self.play(Write(Intro_title))
+        self.next_slide()
+        pos= Tex(r"Position of Object (i): ", r"At infinity",font_size=35,color=YELLOW,tex_environment="{minipage}{13cm}").next_to(Intro_title,DOWN).to_corner(LEFT,buff=0.1)
+        pos[0].set_color(RED)
+        self.play(Write(pos))
+        self.next_slide()
+
+        [m5,pa5,P5,C5,F5,R5,fl5]=Convex(R=6,pae=0.2,pas=0.7)
+
+        pi = m5[0].get_all_points()[2]
+        pi2 = m5[0].get_all_points()[8]
+
+        obj5 = Arrow(start=pa5[0].get_start()+3*LEFT,end=pa5[0].get_start()+3*LEFT+[0,pi[1],0],color=RED,tip_length=0.2,buff=0)
+        dline = DashedLine(start=pa5[0].get_start(), end=pa5[0].get_start()+3*LEFT)
+        obj1lbl = Tex(r"Object",font_size=30).next_to(obj5,DOWN)
+        iray1 = VGroup(DashedLine(start=pa5[0].get_start()+3*LEFT+[0,pi[1],0], end=pa5[0].get_start()+[0,pi[1],0],color=BLUE), Ray(pa5[0].get_start()+[0,pi[1],0],pi,pos=0.3))
+        iray2 = VGroup(DashedLine(start=pa5[0].get_start()+3*LEFT+[0,pi2[1],0], end=pa5[0].get_start()+[0,pi2[1],0],color=BLUE), Ray(pa5[0].get_start()+[0,pi2[1],0],pi2,pos=0.3))
+        imarrow = CurvedArrow(F5,F5+0.5*DOWN+RIGHT,color=ORANGE,tip_length=0.1)
+        imlbl = Tex(r"Image",font_size=30).move_to(imarrow.get_tip()).shift(0.4*RIGHT)
+
+        ray555 = DashedLine(start=m5[0].get_all_points()[2],end=F5,color=BLUE)             
+        ray666 = DashedLine(start=m5[0].get_all_points()[8],end=F5,color=BLUE)
+
+        ray55 = Ray(m5[0].get_all_points()[2],m5[0].get_all_points()[2]-2*ray555.get_unit_vector())
+        ray66 = Ray(m5[0].get_all_points()[8],m5[0].get_all_points()[8]-1.5*ray666.get_unit_vector())
+
+        img5= VGroup(m5,pa5,obj5,dline,obj1lbl,iray1,iray2,imarrow,imlbl,ray555,ray666,ray55,ray66)
+
+        anm5 = [VGroup(m5,pa5),VGroup(dline,obj5,obj1lbl),iray1,VGroup(ray55,ray555),iray2,VGroup(ray66,ray666),VGroup(imarrow,imlbl)]
+
+        t5 = Table(
+            [[" At the focus F,\n behind the mirror", "Highly diminished,\n  point-sized", "Virtual and erect"]],
+            col_labels=[Text("Position of the Image"),Text("Size of the Image"),Text("Nature of the Image")],
+            include_outer_lines=True,).scale(0.44).to_edge(DOWN).to_corner(LEFT,buff=0.8).shift(0.2*DOWN)
+        
+        t5.get_col_labels().set_color(ORANGE)
+
+        for item in anm5:
+            self.play(Write(item))
+            self.wait(2)
+            self.next_slide()
+
+        self.play(Write(t5.get_horizontal_lines()),Write(t5.get_vertical_lines()))
+        self.wait(2)
+        self.next_slide()
+
+        for j in range(3):
+            for i in t5.get_columns()[j]:
+                self.play(Write(i))
+                self.next_slide()
+        
+        self.play(Unwrite(t5),Unwrite(img5),Unwrite(pos))
+        self.wait(2)
+        self.next_slide()
+
+       # img 2
+
+        pos2= Tex(r"Position of Object (ii): ", r"Between infinity and the pole P of the mirror",font_size=35,color=YELLOW,tex_environment="{minipage}{13cm}").next_to(Intro_title,DOWN).to_corner(LEFT,buff=0.1)
+        pos2[0].set_color(RED)
+        self.play(Write(pos2))
+        self.next_slide()
+
+        [m2,pa2,P2,C2,F2,R2,fl2]=Convex(R=6,pae=0.2,pas=0.7)
+
+        pi = m2[0].get_all_points()[6]
+
+        obj2 = Arrow(start=pa5[0].get_start(),end=pa5[0].get_start()+[0,pi[1],0],color=RED,tip_length=0.2,buff=0)
+        obj2lbl = Tex(r"Object",font_size=30).next_to(obj2,DOWN)
+        iray3 = Ray(pa5[0].get_start()+[0,pi[1],0],pi)
+        iray4 = Ray(pa5[0].get_start()+[0,pi[1],0],C2,ext=-0.59,pos=0.8)
+
+        ray333 = DashedLine(start=pi,end=F2,color=BLUE)             
+        ray444 = DashedLine(start=iray4[0].get_end(),end=C5,color=BLUE)
+
+        ray33 = Ray(pi,pi-2*ray333.get_unit_vector())
+        ray44 = Ray(iray4[0].get_end(),iray4[0].get_start(),pos=0.6)
+
+        impos = line_intersection((ray333.get_start(),ray333.get_end()),(ray444.get_start(),ray444.get_end()))
+        imarrow2 = Arrow(start=[impos[0],0,0],end=impos,color=ORANGE,tip_length=0.2,buff=0)
+        imlbl2 = Tex(r"Image",font_size=30).next_to(imarrow2,DOWN)
+
+        img2= VGroup(m2,pa2,obj2,obj2lbl,iray3,iray4,ray333,ray444,ray33,ray44,imarrow2,imlbl2)
+
+        anm2 = [VGroup(m2,pa2),VGroup(obj2,obj2lbl),iray3,VGroup(ray33,ray333),VGroup(iray4,ray444),ray44,VGroup(imarrow2,imlbl2)]
+
+        t2 = Table(
+            [[" Between P and F,\n behind the mirror", "Diminished", "Virtual and erect"]],
+            col_labels=[Text("Position of the Image"),Text("Size of the Image"),Text("Nature of the Image")],
+            include_outer_lines=True,).scale(0.44).to_edge(DOWN).to_corner(LEFT,buff=0.8).shift(0.2*DOWN)
+        
+        t2.get_col_labels().set_color(ORANGE)
+
+        for item in anm2:
+            self.play(Write(item))
+            self.wait(2)
+            self.next_slide()
+
+        self.play(Write(t2.get_horizontal_lines()),Write(t2.get_vertical_lines()))
+        self.wait(2)
+        self.next_slide()
+
+        for j in range(3):
+            for i in t2.get_columns()[j]:
+                self.play(Write(i))
+                self.next_slide()
+        
+        self.play(Unwrite(t2),Unwrite(img2),Unwrite(pos2))
+        self.wait(2)
+        self.next_slide()
+
+        
