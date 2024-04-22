@@ -729,7 +729,6 @@ class ImgeFor(Slide):
             self.play(Write(entry))
             self.next_slide()
 
-
 class RayMirror(Slide):
     def construct(self):
         title = Title('CHAPTER 1 : LIGHT REFLECTION AND REFRACTION',color=GREEN,match_underline_width_to_text=True)
@@ -1312,5 +1311,121 @@ class ImgConv(Slide):
         self.play(Unwrite(t2),Unwrite(img2),Unwrite(pos2))
         self.wait(2)
         self.next_slide()
+
+class Uses(Slide):
+    def construct(self):
+        title = Title('CHAPTER 1 : LIGHT REFLECTION AND REFRACTION',color=GREEN,match_underline_width_to_text=True)
+        self.add(title)
+        Outline = Tex('Learning Objectives :',color=BLUE,font_size=35).next_to(title,DOWN).to_corner(LEFT,buff=0.1)
+        self.add(Outline)
+        list = BulletedList('Introduction',' Reflection And Laws of reflection','Spherical Mirrors','Image formation by Spherical Mirrors','Ray Diagrams','Uses of Concave and Convex Mirrors',
+                            'Sign Convention','Mirror Formula and Magnification',font_size=35).next_to(Outline,DOWN).align_to(Outline,LEFT)
+
+        list2 = BulletedList('Refraction of Light','Refraction through a Rectangular Glass Slab','Laws of Refraction','The Refractive Index',
+                             'Refraction by Spherical Lenses',' Image Formation by Lenses \& Ray Diagrams',"Lens Formula \& Magnification","Power of a Lens",font_size=35).next_to(Outline,DOWN).next_to(list,RIGHT).align_to(list,UP)
+        
+        self.add(list,list2)
+        self.next_slide(loop=True)
+        self.play(FocusOn(list[5]))
+        self.play(Circumscribe(list[5]))
+        self.next_slide()
+        self.play(RemoveTextLetterByLetter(list2))
+        self.play(RemoveTextLetterByLetter(list))
+        self.play(RemoveTextLetterByLetter(Outline))
+        Intro_title = Title(' Uses of Concave and Convex Mirrors', color=GREEN,match_underline_width_to_text=True)
+        self.play(ReplacementTransform(title,Intro_title))
+        self.next_slide()
+        con= Tex(r"Uses of Concave Mirrors : ",font_size=35,color=PINK,tex_environment="{minipage}{13cm}").next_to(Intro_title,DOWN).to_corner(LEFT,buff=0.1)
+        ul = Underline(con)
+        self.play(Write(VGroup(con,ul)))
+        self.next_slide()
+
+        steps = ItemList(Item(r"(1) ", r"Concave mirrors are commonly used in torches, search-lights and vehicles headlights", r" to get powerful parallel beams of light.",pw="6 cm"),
+                         Item(r"(2) ",r"Concave mirrors are often used as shaving mirrors to see a larger image of the face.",pw="6 cm"),
+                         Item(r"(3) ",r"The dentists use concave mirrors to see large images of the teeth of patients.",pw="6 cm"),
+                         Item(r"(4) ",r"Large concave mirrors are used to concentrate sunlight to produce heat in solar furnaces.",pw="6 cm"),
+                        buff=MED_SMALL_BUFF).next_to(con,DOWN,buff=0.3).to_corner(LEFT,buff=0.1)
+        img1 = ImageMobject("torch1.png").scale(0.9).next_to(steps,RIGHT,buff=0.2)
+        img2 = ImageMobject("torch2.png").scale(0.9).next_to(steps,RIGHT,buff=0.2)
+        img3 = ImageMobject("torch3.png").scale(0.9).next_to(steps,RIGHT,buff=0.2)
+        img4 = ImageMobject("torch4.png").scale(0.9).next_to(steps,RIGHT,buff=0.2)
+        img5 = ImageMobject("shav.webp").scale(1.5).next_to(steps,RIGHT,buff=0.2)
+        img6 = ImageMobject("makeup.jpg").scale(0.45).next_to(steps,RIGHT,buff=0.2)
+        img7 = ImageMobject("den.webp").scale(1.1).next_to(steps,RIGHT,buff=0.2)
+        img8 = ImageMobject("sf.jpg").scale(1).next_to(steps,RIGHT,buff=0.2)
+        img9 = ImageMobject("cook2.png").scale(1).next_to(steps,RIGHT,buff=0.2)
+        img10 = ImageMobject("cook1.png").scale(1).next_to(steps,RIGHT,buff=0.2)
+
+        cov= Tex(r"Uses of Convex Mirrors : ",font_size=35,color=PINK,tex_environment="{minipage}{13cm}").next_to(Intro_title,DOWN).to_corner(LEFT,buff=0.1)
+        ul2 = Underline(cov)
+        steps2 = ItemList(Item( r"Convex mirrors are commonly used as rear-view (wing) mirrors in vehicles.",pw="6 cm"),
+                         Item(r" Convex mirrors are preferred because they always give an erect, though diminished, image.",pw="6 cm"),
+                         Item(r"Also, they have a wider field of view as they are curved outwards.", r" Thus, convex mirrors enable the driver to view much larger area than would be possible with a plane mirror .\\",pw="6 cm"),
+                         buff=MED_SMALL_BUFF).next_to(cov,DOWN,buff=0.3).to_corner(LEFT,buff=0.1)
+        img11 = ImageMobject("rvm.jpg").scale(1.4).next_to(steps,RIGHT,buff=0.2)
+        img12 = ImageMobject("rsm.jpg").scale(0.9).next_to(steps,RIGHT,buff=0.2)
+
+        anm = [Write(steps[0][0:2]),FadeIn(img1),FadeIn(img2),FadeIn(img3),FadeIn(img4),Write(steps[0][-1]),FadeOut(img4,img3,img2,img1),Write(steps[1]),FadeIn(img5),FadeIn(img6),FadeOut(img5,img6),Write(steps[2]),FadeIn(img7),FadeOut(img7),Write(steps[3]),FadeIn(img8),FadeIn(img9),FadeIn(img10),FadeOut(img8,img9,img10,steps),ReplacementTransform(VGroup(con,ul),VGroup(cov,ul2)),Write(steps2[0]),FadeIn(img11)]
+        for item in steps:
+            item[0].set_color(ORANGE)
+        for item in anm:
+                self.play(item)
+                self.next_slide()
+
+        for item in steps2[1:3]:
+                for subitem in item:
+                    self.play(Write(subitem))
+                    self.next_slide()
+        self.play(FadeOut(img11),FadeIn(img12))
+
+class Sign(Slide):
+    def construct(self):
+        title = Title('CHAPTER 1 : LIGHT REFLECTION AND REFRACTION',color=GREEN,match_underline_width_to_text=True)
+        self.add(title)
+        Outline = Tex('Learning Objectives :',color=BLUE,font_size=35).next_to(title,DOWN).to_corner(LEFT,buff=0.1)
+        self.add(Outline)
+        list = BulletedList('Introduction',' Reflection And Laws of reflection','Spherical Mirrors','Image formation by Spherical Mirrors','Ray Diagrams','Uses of Concave and Convex Mirrors',
+                            'Sign Convention','Mirror Formula and Magnification',font_size=35).next_to(Outline,DOWN).align_to(Outline,LEFT)
+
+        list2 = BulletedList('Refraction of Light','Refraction through a Rectangular Glass Slab','Laws of Refraction','The Refractive Index',
+                             'Refraction by Spherical Lenses',' Image Formation by Lenses \& Ray Diagrams',"Lens Formula \& Magnification","Power of a Lens",font_size=35).next_to(Outline,DOWN).next_to(list,RIGHT).align_to(list,UP)
+        
+        self.add(list,list2)
+        self.next_slide(loop=True)
+        self.play(FocusOn(list[6]))
+        self.play(Circumscribe(list[6]))
+        self.next_slide()
+        self.play(RemoveTextLetterByLetter(list2))
+        self.play(RemoveTextLetterByLetter(list))
+        self.play(RemoveTextLetterByLetter(Outline))
+        Intro_title = Title(' Sign Conventions For Spherical Mirror', color=GREEN,match_underline_width_to_text=True)
+        self.play(ReplacementTransform(title,Intro_title))
+        self.next_slide() 
+
+        [m1,pa1,P1,C1,F1,R1,fl1]=Concave(R=6,pae=0.05,pas=0.05)
+        obj1 = MyLabeledArrow(label=Tex(r"Height \\ upwards\\ (+ve)",font_size=30),pos=0.7*LEFT,start=C1-LEFT,end=C1-LEFT+1.5*UP,color=RED,tip_length=0.2)
+        obj2 = MyLabeledArrow(label=Tex(r"Height \\ downwards\\ (-ve)",font_size=30),pos=0.7*LEFT,start=C1-2.5*LEFT,end=C1-2.5*LEFT-1.5*UP,color=PINK,tip_length=0.2)
+        objlbl = Tex(r"Object on the left",font_size=30).move_to(C1+2.1*UP+RIGHT)
+        dinl = MyLabeledArrow(label=Tex(r"Direction of \\ incident light",font_size=30),pos=0.001*UP,tip_length=0.2,start=ORIGIN,end=2.5*RIGHT).next_to(objlbl,RIGHT)
+        nd = MyLabeledArrow(label=Tex(r"Distance towards \\ the left (-ve)",font_size=30),pos=0.001*UP,tip_length=0.2,start=2.7*RIGHT,end=ORIGIN,color=BLUE_C).next_to(pa1[1],UP).align_to(pa1[1].get_left(),RIGHT)
+        np = MyLabeledArrow(label=Tex(r"Distance towards \\ the right (+ve)",font_size=30),pos=0.001*UP,tip_length=0.2,start=ORIGIN,end=2.7*RIGHT,color=BLUE_C).next_to(pa1[1],UP).align_to(pa1[1].get_right(),LEFT)
+        fig = VGroup(m1,pa1[0],pa1[1],obj1,obj2,objlbl,dinl,nd,np).scale(0.8).to_corner(RIGHT,buff=0.1)
+        sr = SurroundingRectangle(fig)
+
+        steps = ItemList(Item(r"(i) ", r" The object is always placed to the left of the mirror.",pw="6 cm"),
+                         Item(r"(ii) ",r" All distances parallel to the principal axis are measured from the pole of the mirror.",pw="6 cm"),
+                         Item(r"(iii) ",r" All the distances measured to the right of the origin (along $+$ x-axis) are taken as positive", r" while those measured to the left of the origin (along $-$ x-axis) are taken as negative.",pw="6 cm"),
+                         Item(r"(iv) ",r" Distances measured perpendicular to and above the principal axis (along $+$ y-axis) are taken as positive.",pw="13 cm"),
+                         Item(r"(v) ",r" Distances measured perpendicular to and below the principal axis (along $-$ y-axis) are taken as negative.",pw="13 cm"),
+                        buff=MED_SMALL_BUFF).next_to(Intro_title,DOWN,buff=0.15).to_corner(LEFT,buff=0.1)
+        
+        for item in steps:
+            item[0].set_color(GOLD)
+
+        anm = [VGroup(fig[0:2],sr),VGroup(steps[0],objlbl),VGroup(steps[1],pa1[1]),VGroup(steps[2][0:2],np,dinl),VGroup(steps[2][2],nd),VGroup(steps[3],obj1),VGroup(steps[4],obj2)]
+        for item in anm:
+            self.play(Write(item))
+            self.next_slide()
+        self.wait(2)
 
         
