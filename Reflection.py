@@ -93,11 +93,12 @@ class MyDoubLabArrow(MyLabeledLine, DoubleArrow):
         super().__init__(buff=0,*args, **kwargs)
 
 
-def Item(*str,dot = True,font_size = 35,math=False,pw="8cm"):
+def Item(*str,dot = True,font_size = 35,math=False,pw="8cm",color=WHITE):
     if math:
-        tex = MathTex(*str,font_size=font_size)
+        tex = MathTex(*str,font_size=font_size,color=color)
     else:
-        tex = Tex(*str,font_size=font_size,tex_environment=f"{{minipage}}{{{pw}}}")
+        tex = Tex(*str,color=color,font_size=font_size,tex_environment=f"{{minipage}}{{{pw}}}")
+
     if dot:
         dot = MathTex("\\cdot").scale(2)
         dot.next_to(tex[0][0], LEFT, SMALL_BUFF)
@@ -729,6 +730,7 @@ class ImgeFor(Slide):
             self.play(Write(entry))
             self.next_slide()
 
+
 class RayMirror(Slide):
     def construct(self):
         title = Title('CHAPTER 1 : LIGHT REFLECTION AND REFRACTION',color=GREEN,match_underline_width_to_text=True)
@@ -1312,6 +1314,7 @@ class ImgConv(Slide):
         self.wait(2)
         self.next_slide()
 
+
 class Uses(Slide):
     def construct(self):
         title = Title('CHAPTER 1 : LIGHT REFLECTION AND REFRACTION',color=GREEN,match_underline_width_to_text=True)
@@ -1428,4 +1431,120 @@ class Sign(Slide):
             self.next_slide()
         self.wait(2)
 
+class MirrorFormula(Slide):
+    def construct(self):
+        title = Title('CHAPTER 1 : LIGHT REFLECTION AND REFRACTION',color=GREEN,match_underline_width_to_text=True)
+        self.add(title)
+        Outline = Tex('Learning Objectives :',color=BLUE,font_size=35).next_to(title,DOWN).to_corner(LEFT,buff=0.1)
+        self.add(Outline)
+        list = BulletedList('Introduction',' Reflection And Laws of reflection','Spherical Mirrors','Image formation by Spherical Mirrors','Ray Diagrams','Uses of Concave and Convex Mirrors',
+                            'Sign Convention','Mirror Formula and Magnification',font_size=35).next_to(Outline,DOWN).align_to(Outline,LEFT)
+
+        list2 = BulletedList('Refraction of Light','Refraction through a Rectangular Glass Slab','Laws of Refraction','The Refractive Index',
+                             'Refraction by Spherical Lenses',' Image Formation by Lenses \& Ray Diagrams',"Lens Formula \& Magnification","Power of a Lens",font_size=35).next_to(Outline,DOWN).next_to(list,RIGHT).align_to(list,UP)
         
+        self.add(list,list2)
+        self.next_slide(loop=True)
+        self.play(FocusOn(list[7]))
+        self.play(Circumscribe(list[7]))
+        self.next_slide()
+        self.play(RemoveTextLetterByLetter(list2))
+        self.play(RemoveTextLetterByLetter(list))
+        self.play(RemoveTextLetterByLetter(Outline))
+        Intro_title = Title('Mirror Formula and Magnification', color=GREEN,match_underline_width_to_text=True)
+        self.play(ReplacementTransform(title,Intro_title))
+        self.next_slide() 
+
+        steps = ItemList(Item(r"Object Distance $(u)$ : ", r" The distance of the object from the pole.",pw="6 cm"),
+                         Item(r" Image Distance $(v)$ : ",r" The distance of the image from the pole.",pw="6 cm"),
+                         Item(r"Focal Length $(f)$ : ",r" The distance of the principal focus from the pole.",pw="6 cm"),
+                         Item(r"Mirror Formula: ",r" For spherical mirrors, the relationship between $u$, $v$ and $f$ is given by mirror formula \\ \\", r"$\dfrac{1}{f}=\dfrac{1}{v}+\dfrac{1}{u}$\\ \\", r"This formula is valid in all situations for all spherical mirrors for all positions of the object.",pw="6 cm"),
+                        buff=MED_SMALL_BUFF).next_to(Intro_title,DOWN,buff=0.15).to_corner(LEFT,buff=0.1)
+        
+        
+        for item in steps:
+            item[0].set_color(GOLD)
+        
+        sr = SurroundingRectangle(steps[3][2].set_color(YELLOW),RED)
+
+        [m4,pa4,P4,C4,F4,R4,fl4]=Concave(R=5,pae=0.05,pas=0.3)
+        pi = m4[0].get_all_points()[6]
+        obj4 = MyLabeledArrow(label=Tex(r"$h_o$",font_size=30),start=C4+1*RIGHT,end=C4+1*RIGHT+[0,pi[1],0],color=RED,tip_length=0.2,pos=0.2*LEFT,rot=False)
+        obj4lbl = Tex(r"Object",font_size=30).next_to(obj4,DOWN)
+        iray7 =  Ray(C4+1*RIGHT+[0,pi[1],0],pi)
+        iray8 = Ray(C4+1*RIGHT+[0,pi[1],0],F4,ext=1.5)
+        rray7 = Ray(pi,F4,ext=1.6,pos=0.3)
+        rray8 = Ray(iray8[0].get_end(),iray8[0].get_end()+6*LEFT)
+        impos = line_intersection((rray7[0].get_start(),rray7[0].get_end()),(rray8[0].get_start(),rray8[0].get_end()))
+        imarrow4 = MyLabeledArrow(label=Tex(r"$h_i$",font_size=30),start=[impos[0],0,0],end=impos,color=ORANGE,tip_length=0.2,pos=0.2*LEFT,rot=False)
+        imlbl4 = Tex(r"Image",font_size=30).next_to(imarrow4,UP)
+
+        u = MyDoubLabArrow(label=Tex(r"$u$",font_size=35),start=C4+RIGHT+UP,end = P4+UP,tip_length=0.1,opacity=1,color=BLUE)
+        v = MyDoubLabArrow(label=Tex(r"$v$",font_size=35),start=impos,end = [P4[0],impos[1],0],tip_length=0.1,opacity=1,color=BLUE)
+        f = MyDoubLabArrow(label=Tex(r"$f$",font_size=35),start=F4+0.7*DOWN,end = P4+0.7*DOWN,tip_length=0.1,opacity=1,color=BLUE)
+
+        line = line = Line([0,steps.get_y(UP),0],[0,config.bottom[1],0],color=RED).next_to(steps,0.3*RIGHT).align_to(steps,UP)
+
+
+
+        img4 = VGroup(m4,pa4,obj4[0],obj4lbl,iray7,iray8,rray7,rray8,imarrow4[0],imlbl4,u,v,f).next_to(steps,RIGHT).to_corner(RIGHT).align_to(steps,UP)
+        steps2 = ItemList(Item(r"Object Distance $(u)$ : ", r" Always$(- ve)$",pw="6 cm",color=PINK),
+                         Item(r" Image Distance $(v)$ : ",r" $(+ve)$ if image is virtual, $(-ve)$ if image is real.",pw="6 cm",color=PINK),
+                         Item(r"Focal Length $(f)$ : ",r" $(+ve)$ for convex mirror and $(-ve)$ for concave mirror.",pw="6 cm",color=PINK),
+                        buff=MED_SMALL_BUFF).next_to(img4,DOWN,buff=0.15).align_to(img4,LEFT)
+
+        self.play(Write(img4[0:-3]))
+        self.next_slide()
+        self.play(Unwrite(VGroup(iray7,iray8,rray7,rray8)))
+        self.wait(2)
+        self.next_slide()
+
+        anm = [VGroup(steps[0][0],u),steps[0][1],VGroup(steps[1][0],v),steps[1][1],VGroup(steps[2][0],f),steps[2][1], steps[3][0],steps[3][1],VGroup(steps[3][2],sr),steps[3][3]]
+        
+        for item in anm:
+            self.play(Write(item))
+            self.next_slide()
+
+        self.play(Write(line))
+
+        for item in steps2:
+            item[0].set_color(GOLD)
+            for subitem in item:
+                self.play(Write(subitem))
+                self.next_slide()
+
+        self.play(FadeOut(steps2,steps,sr))
+
+        steps3 = ItemList(Item(r" $(h_o)$ : ", r" Height of the object",pw="6 cm"),
+                         Item(r"$(h_i)$ : ",r" Height of the image.",pw="6 cm"),
+                         Item(r"Magnification $(m)$ : ", r" It is the ratio of height of image $(h_i)$ to the height of the object $(h_o)$ \\ \\", r"$m = \dfrac{h_i}{h_o}$",pw="6 cm"),
+                         Item(r"The magnification $m$", r" is also related to the object distance $(u)$ and image distance $(v)$. \\ \\ ", r"$m =\dfrac{h_i}{h_o}= \dfrac{-v}{u}$",pw="6 cm"),
+                        buff=MED_SMALL_BUFF).next_to(Intro_title,DOWN,buff=0.15).to_corner(LEFT,buff=0.1)
+        
+        
+        for item in steps3:
+            item[0].set_color(GOLD)
+            for subitem in item:
+                self.play(Write(subitem))
+                self.next_slide()
+
+        sr2 = SurroundingRectangle(steps3[3][2])
+        self.play(Write(sr2))
+        self.next_slide()
+        self.play(FadeOut(img4))
+
+        steps4 = ItemList(Item(r"If $h_i=h_o$, then $m=1$",r" i.e., image is equal to object",pw="6 cm",color=PINK),
+                         Item(r"If $h_i>h_o$, then $m>1$",r" i.e., image is enlarged.",pw="6 cm",color=PINK),
+                         Item(r"If $h_i<h_o$, then $m<1$",r" i.e., image is diminished.",pw="6 cm",color=PINK),
+                         Item(r"If $m$ is $+$ve,",r" Image is virtual and erect ",pw="6 cm",color=PINK),
+                         Item(r"If $m$ is $-$ve,",r" Image is real and inverted ",pw="6 cm",color=PINK),
+                         Item(r"For Plane Mirror : ",r"$m=+1$",pw="6 cm",color=PINK),
+                         Item(r"For Convex Mirror : ",r"$m$ is $+$ve and less than 1",pw="7 cm",color=PINK),
+                         Item(r"For Concave Mirror : ",r"$m$ can be $+$ve or $-$ve",pw="7 cm",color=PINK),
+                        buff=MED_SMALL_BUFF).next_to(line,RIGHT).align_to(steps3,UP)
+        
+        for item in steps4:
+            item[0].set_color(GOLD)
+            for subitem in item:
+                self.play(Write(subitem))
+                self.next_slide()
