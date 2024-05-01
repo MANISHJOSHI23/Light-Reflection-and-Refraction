@@ -1548,3 +1548,76 @@ class MirrorFormula(Slide):
             for subitem in item:
                 self.play(Write(subitem))
                 self.next_slide()
+
+class Ex1(Slide):
+    def construct(self):
+
+        def Slideshow(list):
+            for item in list:
+                for subitem in item:
+                    self.play(Write(subitem))
+                    self.next_slide()
+
+        ex_title = Tex(r"Example 1 :", r" Find the focal length of a convex mirror whose radius of curvature is 32 cm.",tex_environment="{minipage} {13 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
+        ex_title[0].set_color(GREEN)
+        for item in ex_title:
+            self.play(Write(item))
+            self.next_slide()
+
+        sol_label =Tex('Solution :',font_size=35, color=ORANGE).next_to(ex_title,DOWN).align_to(ex_title,LEFT)
+        self.play(Write(sol_label)) 
+
+class Ex2(Slide):
+    def construct(self):
+
+        def Slideshow(list):
+            for item in list:
+                for subitem in item:
+                    self.play(Write(subitem))
+                    self.next_slide()
+
+        ex_title = Tex(r"Example 2 :", r" A convex mirror used for rear-view on an automobile has a radius of curvature of 3.00 m. If a bus is located at 5.00 m from this mirror, find the position, nature and size of the image.",tex_environment="{minipage} {13 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
+        ex_title[0].set_color(GREEN)
+        for item in ex_title:
+            self.play(Write(item))
+            self.next_slide()
+
+        sol_label =Tex('Solution :',font_size=35, color=ORANGE).next_to(ex_title,DOWN).align_to(ex_title,LEFT)
+        self.play(Write(sol_label)) 
+
+class Ex3(Slide):
+    def construct(self):
+
+        def Slideshow(list):
+            for item in list:
+                for subitem in item:
+                    self.play(Write(subitem))
+                    self.next_slide()
+
+        ex_title = Tex(r"Example 3 :", r" An object, 4.0 cm in size, is placed at 25.0 cm in front of a concave mirror of focal length 15.0 cm. At what distance from the mirror should a screen be placed in order to obtain a sharp image? Find the nature and the size of the image.",tex_environment="{minipage} {13 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
+        ex_title[0].set_color(GREEN)
+        for item in ex_title:
+            self.play(Write(item))
+            self.next_slide()
+
+        sol_label =Tex('Solution :',font_size=35, color=ORANGE).next_to(ex_title,DOWN).align_to(ex_title,LEFT)
+        self.play(Write(sol_label)) 
+
+class Ex4(Slide):
+    def construct(self):
+
+        def Slideshow(list):
+            for item in list:
+                for subitem in item:
+                    self.play(Write(subitem))
+                    self.next_slide()
+
+        ex_title = Tex(r"Example 4 :", r" A concave mirror produces three times magnified (enlarged) real image of an object placed at 10 cm in front of it. Where is the image located?",tex_environment="{minipage} {13 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
+        ex_title[0].set_color(GREEN)
+        for item in ex_title:
+            self.play(Write(item))
+            self.next_slide()
+
+        sol_label =Tex('Solution :',font_size=35, color=ORANGE).next_to(ex_title,DOWN).align_to(ex_title,LEFT)
+        self.play(Write(sol_label)) 
+
