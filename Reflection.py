@@ -1621,3 +1621,126 @@ class Ex4(Slide):
         sol_label =Tex('Solution :',font_size=35, color=ORANGE).next_to(ex_title,DOWN).align_to(ex_title,LEFT)
         self.play(Write(sol_label)) 
 
+class Ex5(Slide):
+    def construct(self):
+
+        ex_title = Tex(r"Example 5 :", r"  Identify the mirror used by a dentist to examine a small cavity in a patient's teeth?",tex_environment="{minipage}{13 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
+        ex_title[0].set_color(GREEN)
+        self.play(Write(ex_title))
+        self.next_slide()
+
+        op = VGroup(Tex(r'(a)  Convex mirror ',font_size=35),Tex(r'(b) Plane Mirror  ',font_size=35),Tex(r'(c) Concave Mirror  ',font_size=35),Tex(r'(d) Any spherical mirror  ',font_size=35) ).arrange_in_grid(2,2,buff=(4,0.3),col_alignments='ll').next_to(ex_title,DOWN)
+
+        sol_label =Tex('Solution: ',font_size=35, color=ORANGE).next_to(op,DOWN).align_to(ex_title,LEFT)
+        for item in op:
+            self.play(Write(item))
+            self.next_slide()
+        self.play(Write(sol_label)) 
+        self.next_slide(loop=True)
+        self.play(Circumscribe(op[2]))
+
+class Ex6(Slide):
+    def construct(self):
+
+        ex_title = Tex(r"Example 6 :", r"When an object is kept within the focus of a concave mirror, an enlarged image is formed behind the mirror. This image is:",tex_environment="{minipage}{13 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
+        ex_title[0].set_color(GREEN)
+        self.play(Write(ex_title))
+        self.next_slide()
+
+        op = VGroup(Tex(r'(a)  Real ',font_size=35),Tex(r'(b) Inverted ',font_size=35),Tex(r'(c) Virtual and erect  ',font_size=35),Tex(r'(d) Virtual and inverted ',font_size=35) ).arrange_in_grid(2,2,buff=(4,0.3),col_alignments='ll').next_to(ex_title,DOWN)
+
+        sol_label =Tex('Solution: ',font_size=35, color=ORANGE).next_to(op,DOWN).align_to(ex_title,LEFT)
+        for item in op:
+            self.play(Write(item))
+            self.next_slide()
+        self.play(Write(sol_label)) 
+        self.next_slide(loop=True)
+        self.play(Circumscribe(op[2]))
+
+class Ex7(Slide):
+    def construct(self):
+
+        ex_title = Tex(r"Example 7 :", r" Rays from sun converge at a point 15 cm in front of a concave mirror. Where should an object be placed so that size of its image is equal to that of the object?",tex_environment="{minipage}{13 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
+        ex_title[0].set_color(GREEN)
+        self.play(Write(ex_title))
+        self.next_slide()
+
+        op = VGroup(Tex(r'(a)  30 cm in front of a mirror ',font_size=35,tex_environment="{minipage}{5 cm}"),Tex(r'(b) 15 cm in front of a mirror ',font_size=35,tex_environment="{minipage}{5 cm}"),Tex(r'(c) Between 15 cm and 30 cm in front of a mirror ',font_size=35,tex_environment="{minipage}{5 cm}"),Tex(r'(d) More than 30 cm in front of a mirror',font_size=35,tex_environment="{minipage}{5 cm}") ).arrange_in_grid(2,2,buff=(1,0.3),col_alignments='ll').next_to(ex_title,DOWN)
+
+        sol_label =Tex('Solution: ',font_size=35, color=ORANGE).next_to(op,DOWN).align_to(ex_title,LEFT)
+        for item in op:
+            self.play(Write(item))
+            self.next_slide()
+        self.play(Write(sol_label)) 
+        self.next_slide(loop=True)
+        self.play(Circumscribe(op[0]))
+
+class Ex8(Slide):
+    def construct(self):
+
+        ex_title = Tex(r"Example 8 :", r" Magnification produced by a rear-view mirror fitted in vehicles:",tex_environment="{minipage}{13 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
+        ex_title[0].set_color(GREEN)
+        self.play(Write(ex_title))
+        self.next_slide()
+
+        op = VGroup(Tex(r'(i)   is less than one ',font_size=35),Tex(r'(ii)  is more than one ',font_size=35),Tex(r'(iii) is equal to one',font_size=35),Tex(r'(iv) can be more than one or less than one depending upon the position of the object in front of it.  ',font_size=35,tex_environment="{minipage}{10 cm}") ).arrange_in_grid(4,1,buff=(0.5,0.3),col_alignments='l').next_to(ex_title,DOWN)
+
+        sol_label =Tex('Solution:',font_size=35, color=ORANGE).next_to(op,DOWN).align_to(ex_title,LEFT)
+        for item in op:
+            self.play(Write(item))
+            self.next_slide()
+        self.play(Write(sol_label)) 
+        self.next_slide(loop=True)
+        self.play(Circumscribe(op[0]))
+
+class Ex9(Slide):
+    def construct(self):
+
+        ex_title = Tex(r"Example 9 :", r"  While looking at the diagram Nalini concluded the following:",tex_environment="{minipage}{7 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
+        ex_title[0].set_color(GREEN)
+        self.play(Write(ex_title))
+        self.next_slide()
+
+        op1 = VGroup(Tex(r'(i)  The image of the object will be a virtual one. ',font_size=35,tex_environment="{minipage}{7 cm}"),Tex(r'(ii) The reflected ray will travel along the same path as the incident ray but in opposite direction.  ',font_size=35,tex_environment="{minipage}{7 cm}"),Tex(r'(ii) The image of the object will be inverted. ',font_size=35,tex_environment="{minipage}{7 cm}"),Tex(r'(iv) This is a concave mirror and hence the focal length will be negative. ',font_size=35,tex_environment="{minipage}{7 cm}") ).arrange_in_grid(4,1,buff=(1,0.3),col_alignments='l').next_to(ex_title,DOWN)
+
+        [m4,pa4,P4,C4,F4,R4,fl4]=Concave(R=6,pae=0.02,pas=0.02)
+        pi = m4[0].get_all_points()[9]
+        obj4 = Arrow(start=C4+2.5*RIGHT,end=C4+2.5*RIGHT+[0,pi[1],0],color=RED,tip_length=0.2,buff=0)
+        obj4lbl = Tex(r"Object",font_size=30).next_to(obj4,DOWN)
+        dline = DashedLine(start=C4,end=C4+2.5*RIGHT+[0,pi[1],0])
+        iray8 = Ray(C4+2.5*RIGHT+[0,pi[1],0],C4+2.5*RIGHT+[0,pi[1],0]+2*dline.get_unit_vector(),ext=0.67)
+
+        img4 = VGroup(m4,pa4,obj4,obj4lbl,iray8,dline).next_to(ex_title,RIGHT,buff=0.1).align_to(ex_title,UP)
+        self.play(Write(img4))
+        sol_label =Tex('Which one of the above statements are correct?',font_size=35, color=ORANGE).next_to(op1,DOWN).align_to(ex_title,LEFT)
+        op = VGroup(Tex(r'(a)  (i) and (ii) ',font_size=35),Tex(r'(b)  (i) and (iii) ',font_size=35),Tex(r'(c) (ii),(iii) and (iv)',font_size=35),Tex(r'(d) (i), (ii), (iii) and (iv) ',font_size=35,tex_environment="{minipage}{5 cm}") ).arrange_in_grid(2,2,buff=(2,0.3),col_alignments='ll').next_to(sol_label,DOWN).shift(RIGHT)
+        for item in op1:
+            self.play(Write(item))
+            self.next_slide()
+        self.play(Write(sol_label)) 
+        for item in op:
+            self.play(Write(item))
+            self.next_slide()
+        self.next_slide(loop=True)
+        self.play(Circumscribe(op[2]))
+
+class Ex10(Slide):
+    def construct(self):
+
+        def Slideshow(list):
+            for item in list:
+                for subitem in item:
+                    self.play(Write(subitem))
+                    self.next_slide()
+
+        ex_title = Tex(r"Example 1 :", r" A real image, $\dfrac{1}{5}$th size of object is formed at a distance of 18 cm from a mirror. What is the nature of the mirror? Calculate its focal length?",tex_environment="minipage} {13 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
+        ex_title[0].set_color(GREEN)
+        for item in ex_title:
+            self.play(Write(item))
+            self.next_slide()
+
+        sol_label =Tex('Solution :',font_size=35, color=ORANGE).next_to(ex_title,DOWN).align_to(ex_title,LEFT)
+        self.play(Write(sol_label)) 
+
+	    
+
