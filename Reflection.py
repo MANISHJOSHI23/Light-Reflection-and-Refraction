@@ -1726,14 +1726,7 @@ class Ex9(Slide):
 
 class Ex10(Slide):
     def construct(self):
-
-        def Slideshow(list):
-            for item in list:
-                for subitem in item:
-                    self.play(Write(subitem))
-                    self.next_slide()
-
-        ex_title = Tex(r"Example 1 :", r" A real image, $\dfrac{1}{5}$th size of object is formed at a distance of 18 cm from a mirror. What is the nature of the mirror? Calculate its focal length?",tex_environment="minipage} {13 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
+        ex_title = Tex(r"Example 10 :", r" A real image, $\dfrac{1}{5}$th size of object is formed at a distance of 18 cm from a mirror. What is the nature of the mirror? Calculate its focal length?",tex_environment="minipage} {13 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
         ex_title[0].set_color(GREEN)
         for item in ex_title:
             self.play(Write(item))
@@ -1742,5 +1735,106 @@ class Ex10(Slide):
         sol_label =Tex('Solution :',font_size=35, color=ORANGE).next_to(ex_title,DOWN).align_to(ex_title,LEFT)
         self.play(Write(sol_label)) 
 
-	    
+class Ex11(Slide):
+    def construct(self):
+        ex_title = Tex(r"Example 11 :", r" We wish to obtain an erect image of an object, using a concave mirror of focal length 15 cm. ", r"What should be the range of distance of the object from the mirror? ",r"What is the nature of the image? ", r"Is the image larger or smaller than the object? ", r"Draw a ray diagram to show the image formation in this case",tex_environment="minipage} {13 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
+        ex_title[0].set_color(GREEN)
+        for item in ex_title:
+            self.play(Write(item))
+            self.next_slide()
+
+        sol_label =Tex('Solution :',font_size=35, color=ORANGE).next_to(ex_title,DOWN).align_to(ex_title,LEFT)
+        self.play(Write(sol_label)) 
+
+
+class Ex12(Slide):
+    def construct(self):
+        ex_title = Tex(r"Example 12 :", r" An object is placed at a distance of 10 cm from a convex mirror of focal length 15 cm. Find the position and nature of the image.",tex_environment="minipage} {13 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
+        ex_title[0].set_color(GREEN)
+        for item in ex_title:
+            self.play(Write(item))
+            self.next_slide()
+
+        sol_label =Tex('Solution :',font_size=35, color=ORANGE).next_to(ex_title,DOWN).align_to(ex_title,LEFT)
+        self.play(Write(sol_label)) 
+
+class Ex13(Slide):
+    def construct(self):
+        ex_title = Tex(r"Example 13 :", r" The magnification produced by a plane mirror is +1. What does this mean?.",tex_environment="minipage} {13 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
+        ex_title[0].set_color(GREEN)
+        for item in ex_title:
+            self.play(Write(item))
+            self.next_slide()
+
+        sol_label =Tex('Solution :',font_size=35, color=ORANGE).next_to(ex_title,DOWN).align_to(ex_title,LEFT)
+        self.play(Write(sol_label)) 
+
+class Ex14(Slide):
+    def construct(self):
+        ex_title = Tex(r"Example 14 :", r" An object 5.0 cm in length is placed at a distance of 20 cm in front of a convex mirror of radius of curvature 30 cm. Find the position of the image, its nature and size.",tex_environment="minipage} {13 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
+        ex_title[0].set_color(GREEN)
+        for item in ex_title:
+            self.play(Write(item))
+            self.next_slide()
+
+        sol_label =Tex('Solution :',font_size=35, color=ORANGE).next_to(ex_title,DOWN).align_to(ex_title,LEFT)
+        self.play(Write(sol_label)) 
+
+class Ex15(Slide):
+    def construct(self):
+        ex_title = Tex(r"Example 15 :", r" An object of size 7.0 cm is placed at 27 cm in front of a concave mirror of focal length 18 cm. At what distance from the mirror should a screen be placed, so that a sharp focussed image can be obtained? Find the size and the nature of the image.",tex_environment="minipage} {13 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
+        ex_title[0].set_color(GREEN)
+        for item in ex_title:
+            self.play(Write(item))
+            self.next_slide()
+
+        sol_label =Tex('Solution :',font_size=35, color=ORANGE).next_to(ex_title,DOWN).align_to(ex_title,LEFT)
+        self.play(Write(sol_label)) 
+    
+class Ex16(Slide):
+    def construct(self):
+        ex_title = Tex(r"Example 16 :", r" An object is placed at a distance of 30 cm in front of a convex mirror of focal length 15 cm. Write characteristics of the image formed by the mirror. (Delhi 2017)",tex_environment="minipage} {13 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
+        ex_title[0].set_color(GREEN)
+        for item in ex_title:
+            self.play(Write(item))
+            self.next_slide()
+
+        sol_label =Tex('Solution :',font_size=35, color=ORANGE).next_to(ex_title,DOWN).align_to(ex_title,LEFT)
+        self.play(Write(sol_label)) 
+        self.next_slide()
+        sol = ItemList(Item(r"Four characteristics of the image formed by the given convex mirror are :",pw="13 cm",dot=False),
+                          Item(r"(i) Virtual.",pw="6 cm"),
+                          Item(r"(ii) Erect",pw="6 cm"),
+                          Item(r"(iii) Diminished",pw="6 cm"),
+                          Item(r"(iv) Image is always formed behind the mirror between pole and focus.",pw="13 cm"),
+                        buff=MED_SMALL_BUFF).next_to(sol_label,DOWN,buff=0.4).to_corner(LEFT)
+        
+        for item in sol:
+            self.play(Write(item))
+            self.next_slide()
+
+
+class Ex17(Slide):
+    def construct(self):
+        ex_title = Tex(r"Example 17 :", r" An object is placed at a distance of 12 cm in front of a concave mirror of radius of curvature 30 cm. List four characteristics of the image formed by the mirror. ",tex_environment="minipage} {13 cm}",font_size=35, color=BLUE_C).to_corner(UP,buff=0.2).to_corner(LEFT,buff=0.2)
+        ex_title[0].set_color(GREEN)
+        for item in ex_title:
+            self.play(Write(item))
+            self.next_slide()
+
+        sol_label =Tex('Solution :',font_size=35, color=ORANGE).next_to(ex_title,DOWN).align_to(ex_title,LEFT)
+        self.play(Write(sol_label)) 
+        self.next_slide()
+        sol = ItemList(Item(r"Radius of curvature (R) = 30 cm, object distance is 12 cm in front of the mirror.",pw="13 cm",dot=False),
+                       Item(r"Thus, we can say that object is placed between focus and pole.",pw="13 cm",dot=False),
+                       Item(r"Four characteristics of the image formed by the given concave mirror when object is placed between pole and focus are: :",pw="13 cm",dot=False),
+                          Item(r"(i) Virtual.",pw="6 cm"),
+                          Item(r"(ii) Erect",pw="6 cm"),
+                          Item(r"(iii) Enlarged",pw="6 cm"),
+                          Item(r"(iv) Image  formed behind the mirror .",pw="13 cm"),
+                        buff=MED_SMALL_BUFF).next_to(sol_label,DOWN,buff=0.4).to_corner(LEFT)
+        
+        for item in sol:
+            self.play(Write(item))
+            self.next_slide()
 
