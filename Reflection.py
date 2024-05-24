@@ -1838,3 +1838,127 @@ class Ex17(Slide):
             self.play(Write(item))
             self.next_slide()
 
+
+class Refraction(Slide):
+    def construct(self):
+        title = Title('CHAPTER 1 : LIGHT REFLECTION AND REFRACTION',color=GREEN,match_underline_width_to_text=True)
+        self.add(title)
+        Outline = Tex('Learning Objectives :',color=BLUE,font_size=35).next_to(title,DOWN).to_corner(LEFT,buff=0.1)
+        self.add(Outline)
+        list = BulletedList('Introduction',' Reflection And Laws of reflection','Spherical Mirrors','Image formation by Spherical Mirrors','Ray Diagrams','Uses of Concave and Convex Mirrors',
+                            'Sign Convention','Mirror Formula and Magnification',font_size=35).next_to(Outline,DOWN).align_to(Outline,LEFT)
+
+        list2 = BulletedList('Refraction of Light','Refraction through a Rectangular Glass Slab','Laws of Refraction','The Refractive Index',
+                             'Refraction by Spherical Lenses',' Image Formation by Lenses \& Ray Diagrams',"Lens Formula \& Magnification","Power of a Lens",font_size=35).next_to(Outline,DOWN).next_to(list,RIGHT).align_to(list,UP)
+
+        self.add(list,list2)
+        self.next_slide(loop=True)
+        self.play(FocusOn(list2[0]))
+        self.play(Circumscribe(list2[0]))
+        self.next_slide()
+        self.play(RemoveTextLetterByLetter(list2))
+        self.play(RemoveTextLetterByLetter(list))
+        self.play(RemoveTextLetterByLetter(Outline))
+        Intro_title = Title('Refraction of Light', color=GREEN,match_underline_width_to_text=True,underline_buff=0.15)
+        self.play(ReplacementTransform(title,Intro_title))
+        self.next_slide()
+
+
+        steps = ItemList(Item(r"When traveling obliquely from one medium to another, the direction of propagation of light in the second medium changes. This phenomenon is known as refraction of light.",pw="7.5 cm"),
+                         Item(r" OR ",pw="7.5 cm",dot=False,color=RED),
+                         Item(r"The bending of light when it enters obliquely from one transparent medium to another.",pw="7.5 cm"),
+                         Item(r"The major cause of refraction to occur is the change in the speed of light in different mediums",pw="7.5 cm"),
+                         Item(r"Speed of light is maximum in vacuum : $c= 3\times 10^8$ m/s",pw="13 cm"),
+                         Item(r"Fermat's Principle : ", r"A ray of light going from point A to point B always takes the route of least time.",pw="13 cm"),
+                        buff=0.4).next_to(Intro_title,DOWN,buff=0.15).to_corner(LEFT,buff=0.1)
+        
+        steps[5][0].set_color(GOLD)
+        
+        slab_img = ImageMobject("slab.png").scale(0.8).next_to(steps[0],RIGHT).align_to(steps,UP)
+
+        ex_title = Tex("Some Examples of Refraction :",color=BLUE).next_to(Intro_title,DOWN).to_corner(LEFT)
+        ul = Underline(ex_title)
+        examples = ItemList(Item(r"(1) ", r"The bottom of swimming pool appears higher",pw="7.5 cm"),
+                         Item(r"(2) ", r"The pencil partially immersed in water appears to be bent at the interface.",pw="7.5 cm"),
+                         Item(r"(3) ", r"Lemons placed in a glass tumbler appears bigger.",pw="7.5 cm"),
+                         Item(r"(4) ", r"Letters of a book appear to be raised when seen through a glass slab.",pw="7.5 cm"),
+                        buff=0.5).next_to(ex_title,DOWN,buff=0.5).to_corner(LEFT,buff=0.1)
+        
+        pool_img = ImageMobject("pool.jpg").scale(0.7).next_to(examples,RIGHT).align_to(ex_title,UP)
+        pencil_img = ImageMobject("pencil2.jpg").next_to(examples,RIGHT).align_to(ex_title,UP)
+        lemons_img = ImageMobject("lemons.jpg").next_to(examples,RIGHT).align_to(ex_title,UP)
+        letters_img = ImageMobject("letters.webp").scale(3).next_to(examples,RIGHT).align_to(ex_title,UP)
+
+        img_group = Group(pool_img,pencil_img,lemons_img,letters_img)
+
+        self.play(FadeIn(slab_img))
+        for item in steps:
+            self.play(Write(item))
+            self.next_slide()
+        self.play(FadeOut(slab_img,steps),Write(VGroup(ex_title,ul)))
+        self.next_slide()
+        for i in range(4):
+            examples[i][0].set_color(GOLD)
+            self.play(Write(examples[i]),FadeIn(img_group[i]))
+            self.next_slide()
+            self.play(FadeOut(img_group[i]))
+            self.wait(1)
+
+
+class GlassSlab(Slide):
+    def construct(self):
+        title = Title('CHAPTER 1 : LIGHT REFLECTION AND REFRACTION',color=GREEN,match_underline_width_to_text=True)
+        self.add(title)
+        Outline = Tex('Learning Objectives :',color=BLUE,font_size=35).next_to(title,DOWN).to_corner(LEFT,buff=0.1)
+        self.add(Outline)
+        list = BulletedList('Introduction',' Reflection And Laws of reflection','Spherical Mirrors','Image formation by Spherical Mirrors','Ray Diagrams','Uses of Concave and Convex Mirrors',
+                            'Sign Convention','Mirror Formula and Magnification',font_size=35).next_to(Outline,DOWN).align_to(Outline,LEFT)
+
+        list2 = BulletedList('Refraction of Light','Refraction through a Rectangular Glass Slab','Laws of Refraction','The Refractive Index',
+                             'Refraction by Spherical Lenses',' Image Formation by Lenses \& Ray Diagrams',"Lens Formula \& Magnification","Power of a Lens",font_size=35).next_to(Outline,DOWN).next_to(list,RIGHT).align_to(list,UP)
+
+        self.add(list,list2)
+        self.next_slide(loop=True)
+        self.play(FocusOn(list2[1]))
+        self.play(Circumscribe(list2[1]))
+        self.next_slide()
+        self.play(RemoveTextLetterByLetter(list2))
+        self.play(RemoveTextLetterByLetter(list))
+        self.play(RemoveTextLetterByLetter(Outline))
+        Intro_title = Title('Refraction through a Rectangular Glass Slab', color=GREEN,match_underline_width_to_text=True,underline_buff=0.15)
+        self.play(ReplacementTransform(title,Intro_title))
+        self.next_slide()
+
+        slab = Rectangle(BLUE,height=3,width=5,fill_opacity=0.5,fill_color=BLUE)
+        slab_lbl = Tex(r"Glass",font_size=35).move_to(1.2*UP+2*RIGHT)
+        air_lbl = Tex(r"Air",font_size=35).move_to(2*UP+2*RIGHT)
+        normal_1 = DashedLine(start=1.5*LEFT+2.5*UP,end=1.5*LEFT+0.5*UP,color=GREY_BROWN)
+        normal_2 = DashedLine(start=0.5*DOWN,end=2.5*DOWN,color=GREY_BROWN)
+        i_ray = Ray(start=3*LEFT+3*UP,end=1.5*LEFT+1.5*UP,color=RED)
+        r_ray = Ray(start=1.5*LEFT+1.5*UP,end=1.5*DOWN,color=RED)
+        e_ray = Ray(start=1.5*DOWN,end=1.5*DOWN+2*i_ray[0].get_unit_vector(),color=RED)
+        ext_ray = DashedLine(start=1.5*LEFT+1.5*UP,end=1.5*LEFT+1.5*UP+5.2*i_ray[0].get_unit_vector(),color=LIGHT_BROWN)
+        i_ang = Angle(normal_1,i_ray[0],radius=0.5,quadrant=(-1,-1),color=YELLOW)
+        r_ang = Angle(normal_1,r_ray[0],radius=0.5,quadrant=(1,1),color=YELLOW)
+        e_ang = Angle(normal_2,e_ray[0],radius=0.5,quadrant=(1,1),color=YELLOW)
+        i_lbl = Tex(r"$\angle i$",font_size=30).next_to(i_ang,UP,buff=0.1)
+        r_lbl = Tex(r"$\angle r$",font_size=30).next_to(r_ang,DOWN,buff=0.1)
+        e_lbl = Tex(r"$\angle e$",font_size=30).next_to(e_ang,DOWN,buff=0.1)
+        i_arrow  = CurvedArrow(start_point=i_ray[0].get_start(),end_point=i_ray[0].get_start()-0.3*DOWN+RIGHT,color=GOLD,tip_length=0.1)
+        i_arrow_lbl = Tex("Incident Ray",font_size=30,color=GOLD).move_to(i_arrow.get_end())
+        n_arrow  = CurvedArrow(start_point=normal_1.get_start(),end_point=normal_1.get_start()-0.3*DOWN+1.5*RIGHT,color=GREEN,tip_length=0.1)
+        n_arrow_lbl = Tex("Normal",font_size=30,color=GOLD).move_to(n_arrow.get_end()).shift(0.1*UP)
+
+        r_arrow  = CurvedArrow(start_point=r_ray[0].get_all_points()[2],end_point=r_ray[0].get_all_points()[2]+0.4*DOWN+1.5*LEFT,color=GREEN,tip_length=0.1)
+        r_arrow_lbl = Tex("Refracted Ray",font_size=30,color=GOLD).move_to(r_arrow.get_end()).shift(0.1*DOWN)
+
+        e_arrow  = CurvedArrow(start_point=e_ray[0].get_all_points()[3],end_point=e_ray[0].get_all_points()[3]+1*LEFT,color=GREEN,tip_length=0.1)
+        e_arrow_lbl = Tex("Emergent Ray",font_size=30,color=GOLD).move_to(e_arrow.get_end()).shift(0.1*DOWN)
+
+        d_arrow = MyDoubLabArrow(label=Tex(r"$d$",font_size=30),start=e_ray[0].get_end(),end=ext_ray.get_end(),tip_length=0.1)
+
+
+        img = VGroup(slab,normal_1,i_ray,r_ray,e_ray,normal_2,ext_ray,slab_lbl,air_lbl,i_ang,r_ang,e_ang,i_lbl,r_lbl,e_lbl,i_arrow,i_arrow_lbl,n_arrow,n_arrow_lbl,r_arrow,r_arrow_lbl,e_arrow,e_arrow_lbl,d_arrow).next_to(Intro_title,DOWN).to_corner(RIGHT)
+        self.add(img)
+        self.wait(2)
+
