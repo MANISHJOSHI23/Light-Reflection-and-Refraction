@@ -2036,11 +2036,11 @@ class LawsRefraction(Slide):
         steps = ItemList(Item(r"(1) ", r" The incident ray, the refracted ray and the normal at the point of incidence all lie in the same plane.",pw="7.5 cm"),
                          Item(r"(2) Snell's law", r" The ratio of the sine of the angle of incidence to the sine of the angle of refraction is a constant.",pw="7.5 cm"),
                          Item(r"$\dfrac{\sin (\angle i)}{\sin(\angle r)}=\text{Constant}$ ",r"$=n_{21}$",pw="7.5 cm",color=PINK,dot=False),
-                         Item(r"This ",r"constant ", r"value is called the", r"refractive index $n_{21}$", r"of the second medium with respect to the first.",pw="7.5 cm",dot=False),
-                        buff=0.5).next_to(Intro_title,DOWN,buff=0.15).to_corner(LEFT,buff=0.5)
+                         Item(r"This ",r"constant ", r"value is called the ", r"refractive index $n_{21}$ ", r"of the second medium with respect to the first.",pw="7.5 cm",dot=False),
+                        buff=0.5).next_to(Intro_title,DOWN,buff=0.5).to_corner(LEFT,buff=0.2)
         
         sr = SurroundingRectangle(steps[2])
-        VGroup(steps[3][1],steps[3][2]).set_color(YELLOW)
+        VGroup(steps[3][1],steps[3][3]).set_color(YELLOW)
         steps[0][0].set_color(GOLD)
         steps[1][0].set_color(GOLD)
         
