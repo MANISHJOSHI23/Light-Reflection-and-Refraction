@@ -1960,5 +1960,94 @@ class GlassSlab(Slide):
 
         img = VGroup(slab,normal_1,i_ray,r_ray,e_ray,normal_2,ext_ray,slab_lbl,air_lbl,i_ang,r_ang,e_ang,i_lbl,r_lbl,e_lbl,i_arrow,i_arrow_lbl,n_arrow,n_arrow_lbl,r_arrow,r_arrow_lbl,e_arrow,e_arrow_lbl,d_arrow).next_to(Intro_title,DOWN).to_corner(RIGHT)
         self.add(img)
+        steps = ItemList(Item(r"The extent of bending of a ray of light at the opposite parallel faces of a rectangular glass slab is equal and opposite, ", r"so the ray emerges parallel to incident ray.",pw="7.5 cm"),
+                         Item(r"For glass slab : $\angle i=\angle e$",pw="7.5 cm"),
+                         Item(r"The perpendicular distance between direction of incident ray and emergent ray is called lateral displacement $(d)$ ",pw="7.5 cm"),
+                         Item(r"Lateral displacement $(d)$ depends on - ",pw="7.5 cm"),
+                         Item(r"(1) Refractive index of the material of the slab.",pw="7.5 cm",dot=False),
+                         Item(r"(2) Thickness of the slab.",pw="7.5 cm",dot=False),
+                         Item(r"(3) Angle of incidence.",pw="7.5 cm",dot=False),
+                        buff=0.3).next_to(Intro_title,DOWN,buff=0.15).to_corner(LEFT,buff=0.2)
+        
+        steps[0][1].set_color(YELLOW)
+        
+        for item in steps:
+            self.play(Write(item))
+            self.next_slide()
         self.wait(2)
 
+
+class LawsRefraction(Slide):
+    def construct(self):
+        title = Title('CHAPTER 1 : LIGHT REFLECTION AND REFRACTION',color=GREEN,match_underline_width_to_text=True)
+        self.add(title)
+        Outline = Tex('Learning Objectives :',color=BLUE,font_size=35).next_to(title,DOWN).to_corner(LEFT,buff=0.1)
+        self.add(Outline)
+        list = BulletedList('Introduction',' Reflection And Laws of reflection','Spherical Mirrors','Image formation by Spherical Mirrors','Ray Diagrams','Uses of Concave and Convex Mirrors',
+                            'Sign Convention','Mirror Formula and Magnification',font_size=35).next_to(Outline,DOWN).align_to(Outline,LEFT)
+
+        list2 = BulletedList('Refraction of Light','Refraction through a Rectangular Glass Slab','Laws of Refraction','The Refractive Index',
+                             'Refraction by Spherical Lenses',' Image Formation by Lenses \& Ray Diagrams',"Lens Formula \& Magnification","Power of a Lens",font_size=35).next_to(Outline,DOWN).next_to(list,RIGHT).align_to(list,UP)
+
+        self.add(list,list2)
+        self.next_slide(loop=True)
+        self.play(FocusOn(list2[2]))
+        self.play(Circumscribe(list2[2]))
+        self.next_slide()
+        self.play(RemoveTextLetterByLetter(list2))
+        self.play(RemoveTextLetterByLetter(list))
+        self.play(RemoveTextLetterByLetter(Outline))
+        Intro_title = Title('Laws of Refraction', color=GREEN,match_underline_width_to_text=True,underline_buff=0.15)
+        self.play(ReplacementTransform(title,Intro_title))
+        self.next_slide()
+
+        slab = Rectangle(BLUE,height=3,width=5,fill_opacity=0.5,fill_color=BLUE)
+        slab_lbl = Tex(r"Glass",font_size=35).move_to(1.2*UP+2*RIGHT)
+        air_lbl = Tex(r"Air",font_size=35).move_to(2*UP+2*RIGHT)
+        normal_1 = DashedLine(start=1.5*LEFT+2.5*UP,end=1.5*LEFT+0.5*UP,color=GREY_BROWN)
+        normal_2 = DashedLine(start=0.5*DOWN,end=2.5*DOWN,color=GREY_BROWN)
+        i_ray = Ray(start=3*LEFT+3*UP,end=1.5*LEFT+1.5*UP,color=RED)
+        r_ray = Ray(start=1.5*LEFT+1.5*UP,end=1.5*DOWN,color=RED)
+        e_ray = Ray(start=1.5*DOWN,end=1.5*DOWN+2*i_ray[0].get_unit_vector(),color=RED)
+        ext_ray = DashedLine(start=1.5*LEFT+1.5*UP,end=1.5*LEFT+1.5*UP+5.2*i_ray[0].get_unit_vector(),color=LIGHT_BROWN)
+        i_ang = Angle(normal_1,i_ray[0],radius=0.5,quadrant=(-1,-1),color=YELLOW)
+        r_ang = Angle(normal_1,r_ray[0],radius=0.5,quadrant=(1,1),color=YELLOW)
+        e_ang = Angle(normal_2,e_ray[0],radius=0.5,quadrant=(1,1),color=YELLOW)
+        i_lbl = Tex(r"$\angle i$",font_size=30).next_to(i_ang,UP,buff=0.1)
+        r_lbl = Tex(r"$\angle r$",font_size=30).next_to(r_ang,DOWN,buff=0.1)
+        e_lbl = Tex(r"$\angle e$",font_size=30).next_to(e_ang,DOWN,buff=0.1)
+        i_arrow  = CurvedArrow(start_point=i_ray[0].get_start(),end_point=i_ray[0].get_start()-0.3*DOWN+RIGHT,color=GOLD,tip_length=0.1)
+        i_arrow_lbl = Tex("Incident Ray",font_size=30,color=GOLD).move_to(i_arrow.get_end())
+        n_arrow  = CurvedArrow(start_point=normal_1.get_start(),end_point=normal_1.get_start()-0.3*DOWN+1.5*RIGHT,color=GREEN,tip_length=0.1)
+        n_arrow_lbl = Tex("Normal",font_size=30,color=GOLD).move_to(n_arrow.get_end()).shift(0.1*UP)
+
+        r_arrow  = CurvedArrow(start_point=r_ray[0].get_all_points()[2],end_point=r_ray[0].get_all_points()[2]+0.4*DOWN+1.5*LEFT,color=GREEN,tip_length=0.1)
+        r_arrow_lbl = Tex("Refracted Ray",font_size=30,color=GOLD).move_to(r_arrow.get_end()).shift(0.1*DOWN)
+
+        e_arrow  = CurvedArrow(start_point=e_ray[0].get_all_points()[3],end_point=e_ray[0].get_all_points()[3]+1*LEFT,color=GREEN,tip_length=0.1)
+        e_arrow_lbl = Tex("Emergent Ray",font_size=30,color=GOLD).move_to(e_arrow.get_end()).shift(0.1*DOWN)
+
+        d_arrow = MyDoubLabArrow(label=Tex(r"$d$",font_size=30),start=e_ray[0].get_end(),end=ext_ray.get_end(),tip_length=0.1)
+
+
+        img = VGroup(slab,normal_1,i_ray,r_ray,e_ray,normal_2,ext_ray,slab_lbl,air_lbl,i_ang,r_ang,e_ang).next_to(Intro_title,DOWN).to_corner(RIGHT)
+        self.add(img)
+
+        steps = ItemList(Item(r"(1) ", r" The incident ray, the refracted ray and the normal at the point of incidence all lie in the same plane.",pw="7.5 cm"),
+                         Item(r"(2) Snell's law", r" The ratio of the sine of the angle of incidence to the sine of the angle of refraction is a constant.",pw="7.5 cm"),
+                         Item(r"$\dfrac{\sin (\angle i)}{\sin(\angle r)}=\text{Constant}$ ",r"$=n_{21}$",pw="7.5 cm",color=PINK,dot=False),
+                         Item(r"This ",r"constant ", r"value is called the", r"refractive index $n_{21}$", r"of the second medium with respect to the first.",pw="7.5 cm",dot=False),
+                        buff=0.5).next_to(Intro_title,DOWN,buff=0.15).to_corner(LEFT,buff=0.5)
+        
+        sr = SurroundingRectangle(steps[2])
+        VGroup(steps[3][1],steps[3][2]).set_color(YELLOW)
+        steps[0][0].set_color(GOLD)
+        steps[1][0].set_color(GOLD)
+        
+        for item in steps:
+            for subitem in item:
+                self.play(Write(subitem))
+                self.next_slide()
+
+        self.play(Write(sr))
+        self.wait(2)
