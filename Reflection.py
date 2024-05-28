@@ -2002,8 +2002,8 @@ class LawsRefraction(Slide):
         self.next_slide()
 
         slab = Rectangle(BLUE,height=3,width=5,fill_opacity=0.5,fill_color=BLUE)
-        slab_lbl = Tex(r"Glass",font_size=35).move_to(1.2*UP+2*RIGHT)
-        air_lbl = Tex(r"Air",font_size=35).move_to(2*UP+2*RIGHT)
+        slab_lbl = Tex(r"Medium 2\\ (Glass)",font_size=35).move_to(1*UP+1.6*RIGHT)
+        air_lbl = Tex(r"Medium 1\\ (Air)",font_size=35).move_to(2.2*UP+1.6*RIGHT)
         normal_1 = DashedLine(start=1.5*LEFT+2.5*UP,end=1.5*LEFT+0.5*UP,color=GREY_BROWN)
         normal_2 = DashedLine(start=0.5*DOWN,end=2.5*DOWN,color=GREY_BROWN)
         i_ray = Ray(start=3*LEFT+3*UP,end=1.5*LEFT+1.5*UP,color=RED)
@@ -2030,13 +2030,13 @@ class LawsRefraction(Slide):
         d_arrow = MyDoubLabArrow(label=Tex(r"$d$",font_size=30),start=e_ray[0].get_end(),end=ext_ray.get_end(),tip_length=0.1)
 
 
-        img = VGroup(slab,normal_1,i_ray,r_ray,e_ray,normal_2,ext_ray,slab_lbl,air_lbl,i_ang,r_ang,e_ang).next_to(Intro_title,DOWN).to_corner(RIGHT)
+        img = VGroup(slab,normal_1,i_ray,r_ray,slab_lbl,air_lbl,i_ang,r_ang,i_lbl,r_lbl).next_to(Intro_title,DOWN).to_corner(RIGHT)
         self.add(img)
 
         steps = ItemList(Item(r"(1) ", r" The incident ray, the refracted ray and the normal at the point of incidence all lie in the same plane.",pw="7.5 cm"),
-                         Item(r"(2) Snell's law", r" The ratio of the sine of the angle of incidence to the sine of the angle of refraction is a constant.",pw="7.5 cm"),
+                         Item(r"(2) Snell's law : ", r" The ratio of the sine of the angle of incidence to the sine of the angle of refraction is a constant.",pw="7.5 cm"),
                          Item(r"$\dfrac{\sin (\angle i)}{\sin(\angle r)}=\text{Constant}$ ",r"$=n_{21}$",pw="7.5 cm",color=PINK,dot=False),
-                         Item(r"This ",r"constant ", r"value is called the ", r"refractive index $n_{21}$ ", r"of the second medium with respect to the first.",pw="7.5 cm",dot=False),
+                         Item(r"This ",r"constant ", r"value is called the ", r"refractive index $(n_{21})$ ", r"of the second medium with respect to the first.",pw="7.5 cm",dot=False),
                         buff=0.5).next_to(Intro_title,DOWN,buff=0.5).to_corner(LEFT,buff=0.2)
         
         sr = SurroundingRectangle(steps[2])
@@ -2044,10 +2044,10 @@ class LawsRefraction(Slide):
         steps[0][0].set_color(GOLD)
         steps[1][0].set_color(GOLD)
         
-        for item in steps:
+        for item in steps[0:3]:
             for subitem in item:
                 self.play(Write(subitem))
                 self.next_slide()
 
-        self.play(Write(sr))
+        self.play(Write(sr),Write(steps[3]))
         self.wait(2)
