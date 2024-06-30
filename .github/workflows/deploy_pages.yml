@@ -19,7 +19,7 @@ concurrency:
 env:
   FILE: 'Reflection.py'  # Source file where scenes are defined
   MANIM: 'manim'  # manim or manimgl - which Manim renderer to use
-  SCENES: 'Obj Intro Reflection SphMirror ImgeFor RayMirror ImgConc ImgConv Uses Sign MirrorFormula Ex1 Ex2 Ex3 Ex4 Ex5 Ex6 Ex7 Ex8 Ex9 Ex10 Ex11 Ex12 Ex13 Ex14 Ex15 Ex16 Ex17 Refraction GlassSlab LawsRefraction'  # Space-separated list of scenes to render
+  SCENES: 'Obj Intro Reflection SphMirror ImgeFor RayMirror ImgConc ImgConv Uses Sign MirrorFormula Ex1 Ex2 Ex3 Ex4 Ex5 Ex6 Ex7 Ex8 Ex9 Ex10 Ex11 Ex12 Ex13 Ex14 Ex15 Ex16 Refraction GlassSlab LawsRefraction'  # Space-separated list of scenes to render
   USES_TEX: true  # true or false - disabling this will make the action run faster
   DISPLAY: :99  # Do not touch this
 
