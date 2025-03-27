@@ -775,7 +775,9 @@ class RayMirror(Slide):
             self.next_slide()
 
         self.play(FadeOut(g1,steps))
-
+        self.wait(2)
+        self.next_slide(src="Rules of drawing Ray Diagram - Concave mirror.mp4")
+        self.next_slide()
         raylbl= Tex("Any two of the following rays can be considered for locating the image.",font_size=35,color=RED_A,tex_environment="{minipage}{13cm}").next_to(Intro_title,DOWN).to_corner(LEFT,buff=0.1)
         self.play(Write(raylbl))
 
@@ -898,6 +900,7 @@ class RayMirror(Slide):
                     self.play(Write(anm3[i-1]))
                 self.wait(2)
                 self.next_slide()
+
 
     
 class ImgConc(Slide):
